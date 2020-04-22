@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Register</title>
+    <style>
+        @media (min-width: 300px) and (max-width: 1199px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+
+        }
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 1200px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+
+        }
+
+        @media (min-width: 992px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "register", user}) %>
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+    <% } %>
+
+
+    <div class="jumbotron">
+        <h1 align="center" class="display-4">Create Account</h1>
+
+        <form class="form-signin" action="/register" method="POST">
+
+
+            <table align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">Email: </label>
+                        </td>
+                        <td colspan="1">
+                            <input id="a1" type="email" class="form-control" id="email" name="email"
+                                placeholder="Must Contain @">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">Password: </label>
+                        </td>
+                        <td>
+                            <input id="a2" type="password" class="form-control" id="password" name="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">Confirm Password: </label>
+                        </td>
+                        <td>
+                            <input type="password" id="a3" class="form-control" id="password2" name="password2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">Telephone: </label>
+                        </td>
+                        <td>
+                            <input type="tel" id="a4" class="form-control" id="phoneNumber" name="phoneNumber"
+                                placeholder="10 digits: 4051111111">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">City: </label>
+                        </td>
+                        <td>
+                            <input type="text" id="a5" class="form-control" id="city" name="city">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">State: </label>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <select class="form-control" name="state">
+                                    <option value="Select">---Select---</option>
+                                    <option value="Alabama">Alabama - AL</option>
+                                    <option value="Alaska">Alaska - AK</option>
+                                    <option value="Arizona">Arizona - AZ</option>
+                                    <option value="Arkansas">Arkansas - AR</option>
+                                    <option value="California">California - CA</option>
+                                    <option value="Colorado">Colorado - CO</option>
+                                    <option value="Connecticut">Connecticut - CT</option>
+                                    <option value="Delaware">Delaware - DE</option>
+                                    <option value="Florida">Florida - FL</option>
+                                    <option value="Georgia">Georgia - GA</option>
+                                    <option value="Hawaii">Hawaii - HI</option>
+                                    <option value="Idaho">Idaho - ID</option>
+                                    <option value="Illinois">Illinois - IL</option>
+                                    <option value="Indiana">Indiana - IN</option>
+                                    <option value="Iowa">Iowa - IA</option>
+                                    <option value="Kansas">Kansas - KS</option>
+                                    <option value="Kentucky">Kentucky - KY</option>
+                                    <option value="Louisiana">Louisiana - LA</option>
+                                    <option value="Maine">Maine - ME</option>
+                                    <option value="Maryland">Maryland - MD</option>
+                                    <option value="Massachusetts">Massachusetts - MA</option>
+                                    <option value="Michigan">Michigan - MI</option>
+                                    <option value="Minnesota">Minnesota - MN</option>
+                                    <option value="Mississippi">Mississippi - MS</option>
+                                    <option value="Missouri">Missouri - MO</option>
+                                    <option value="Montana">Montana - MT</option>
+                                    <option value="Nebraska">Nebraska - NE</option>
+                                    <option value="Nevada">Nevada - NV</option>
+                                    <option value="New Hampshir">New Hampshire - NH</option>
+                                    <option value="New Jersey">New Jersey - NJ</option>
+                                    <option value="New Mexico">New Mexico - NM</option>
+                                    <option value="New York">New York - NY</option>
+                                    <option value="North Carolina">North Carolina - NC</option>
+                                    <option value="North Dakota">North Dakota - ND</option>
+                                    <option value="Ohio">Ohio - OH</option>
+                                    <option value="Oklahoma">Oklahoma - OK</option>
+                                    <option value="Oregon">Oregon - OR</option>
+                                    <option value="Pennsylvania">Pennsylvania - PA</option>
+                                    <option value="Rhode Island">Rhode Island - RI</option>
+                                    <option value="South Carolina">South Carolina - SC</option>
+                                    <option value="South Dakota">South Dakota - SD</option>
+                                    <option value="Tennessee">Tennessee - TN</option>
+                                    <option value="Texas">Texas - TX</option>
+                                    <option value="Utah">Utah - UT</option>
+                                    <option value="Vermont">Vermont - VT</option>
+                                    <option value="Virginia">Virginia - VA</option>
+                                    <option value="Washington">Washington - WA</option>
+                                    <option value="oWest Virginiane">West Virginia - WV</option>
+                                    <option value="Wisconsin">Wisconsin - WI</option>
+                                    <option value="Wyoming">Wyoming - WY</option>
+
+                                </select>
+
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th></th>
+                        <td>
+
+                        </td>
+                        <td>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" name="terms">
+                                <label class="form-check-label" id="a5" for="exampleCheck1">Agree to Novaware's <a
+                                        href="/conditions" target="_blank">Conditions of Use</a> and
+                                    <a href="/privacy" target="_blank">Privacy Notice.</a> </label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button type="submit" id="b1" class="btn btn-primary">Register</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

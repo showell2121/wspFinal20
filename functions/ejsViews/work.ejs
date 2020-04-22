@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Signin</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: 150%;
+            }
+
+            hr {
+                width: 150%;
+            }
+
+            #table2 {
+                width: 80%;
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            table {
+                width: 100%;
+            }
+
+            #table2 {
+                width: 50%;
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+            }
+
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 80%;
+
+            }
+
+            hr {
+                width: 80%;
+            }
+
+            #table2 {
+                width: 50%;
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                counter-reset: rowNumber;
+            }
+
+            #table2 tr::before {
+                display: table-cell;
+                counter-increment: rowNumber;                
+                padding-right: 0.3em;
+                text-align: right;
+            }
+
+            #table2 td,
+            th {
+                border: #dddddd;
+                text-align: left;
+                white-space: nowrap;
+            }
+
+            #table2 tr:nth-child(even) tr{
+                background-color: yellow;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "work", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+    <div class="jumbotron">
+        <!-- <h1 class="display-4" align="center" style="margin-left: 10%;">Complete The Form</h1> -->
+
+
+
+        <form class="form-signin" action="/work" method="POST">
+
+
+            <table align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <td></td>
+
+                        <td colspan="1" align="right">
+                            <label>Name: </label>
+                        </td>
+                        <td></td>
+                        <td colspan="1">
+                            <input type="text" class="form-control" id="name" name="name">
+                        </td>
+                        <td></td>
+                        <td colspan="1" align="right">
+                            <label>Phone: </label>
+                        </td>
+                        <td></td>
+                        <td colspan="1">
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </td>
+                        <td></td>
+                        <td colspan="1" align="right">
+                            <label>Occupation: </label>
+                        </td>
+                        <td></td>
+                        <td colspan="1">
+                            <input type="tel" class="form-control" id="workType" name="workType">
+                        </td>
+                        <td></td>
+                        <td colspan="2">
+                            <button type="submit" id="button2" class="btn btn-primary">Submit</button>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th></th>
+                        <td></td>
+
+                    </tr>
+
+
+
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+
+
+
+    <hr class="my-4">
+
+    <table align="center" id="table2">
+        <thead>
+            <th></th>
+            <th>Name</th>
+            <th style="white-space: nowrap;">Phone</th>
+            <th>Occupation</th>
+
+            <!-- <th style="white-space: nowrap;">Send Email</th> -->
+        </thead>
+        <tbody>
+
+            <% workers.forEach(obj => {  %>
+            <form class="form-signin">
+
+                <tr>
+                    <th></th>
+                    <td id="itemname">
+                        <%= obj.name %>
+                        <input type="hidden" class="form-control" value="<%= obj.item %>" id="item" name="item"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= obj.phone %>
+                        <input type="hidden" class="form-control" id="dayswithout" name="dayswithout"
+                            value="<%= obj.without %>" readonly>
+                    </td>
+                    <td>
+                        <%= obj.work %>
+                        <input type="hidden" class="form-control" id="city" name="city" value="<%= obj.city %>"
+                            readonly>
+                    </td>
+                </tr>
+            </form>
+            <% }) %>
+        </tbody>
+    </table>
+
+
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

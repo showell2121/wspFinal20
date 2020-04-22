@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Provide</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 350px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 550px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 650px;
+                height: 300px;
+                margin-left: 20%;
+                margin-bottom: 5%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 30%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "signin", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+    <div class="jumbotron">
+        <h1 class="display-4">Novaware Privacy Notice</h1>
+        <p class="lead">Close Tab to Return to Registation Page</p>
+        <hr class="my-4">
+        <p> We know that you care how information about you is used and shared, and we appreciate your trust that we
+            will do so carefully and sensibly.
+            This Privacy Notice describes how Novaware and its affiliates (collectively “Novaware”) collect and process
+            your personal information through coronaproject websites,
+            devices, products, services, online and physical stores, and applications that reference this Privacy
+            Notice.
+            By using Novaware Services, you are consenting to the practices described in this Privacy Notice. </p>
+        <p>
+
+            What Personal Information About Customers Does Novaware Collect? </br>
+            For What Purposes Does Novaware Use Your Personal Information? </br>
+            Does Novaware Share Your Personal Information?</br>
+            How Secure Is Information About Me?</br>
+            What About Advertising?</br>
+            What Information Can I Access?</br>
+            What Choices Do I Have?</br>
+
+            Conditions of Use, Notices, and Revisions</br>
+
+        </p>
+
+
+        <p>
+
+            What Personal Information About Customers Does Novaware Collect? </br>
+
+            We collect your personal information in order to provide and continually improve our products and services.
+            </br>
+            Here are the types of personal information we collect:
+
+            Information You Give Us: We receive and store any information you provide in relation to firebase Services.
+            The information provided upon registation is all the information stored.
+        </p>
+
+        <p>
+
+
+
+            For What Purposes Does Novaware Use Your Personal Information? </br>
+
+            We use your personal information to operate, provide, develop, and improve the products and services that we
+            offer our customers. These purposes include: </br>
+
+            Delivery of products and services.
+            We use your personal information to take and handle orders, deliver products and services and communicate
+            with you about orders, products and services,
+            and promotional offers.
+            Provide, troubleshoot, and improve Novaware Services. We use your personal information to provide
+            functionality, analyze performance, fix errors, and improve the usability
+            and effectiveness of the Novaware Services.
+
+            Comply with legal obligations. In certain cases, we collect and use your personal information to comply with
+            laws. For instance, we collect people providing assistance information regarding place
+            of establishment and bank user information for identity verification and other purposes.
+            Communicate with you. We use your personal information to communicate with you in relation to Novaware
+            Services via different channels (e.g., by phone, e-mail).
+        </p>
+
+        <p>
+
+            Information about our customers is an important part of our business, and we are not in the business of
+            selling our customers’ personal information to others.
+            We share customers’ personal information only as described below and with subsidiaries Novaware.com, Inc.
+            controls that either are subject to this Privacy Notice
+            or follow practices at least as protective as those described in this Privacy Notice.
+
+            Transactions involving Third Parties: We make available to you services, products, applications, or skills
+            provided by third parties for use on or through Novaware Services.
+            Third-Party Service Providers: We employ other companies and individuals to perform functions on our behalf.
+            Examples include fulfilling orders for products or services, removing repetitive information from customer
+            lists, analyzing data, providing marketing assistance, providing search results and links (including paid
+            listings
+            and links), processing payments, transmitting content and providing customer service. These third-party
+            service providers have access to personal
+            information needed to perform their functions, but may not use it for other purposes.
+            Protection of Novaware and Others: We release account and other personal information when we believe release
+            is appropriate to comply with the law; enforce or apply our Conditions of Use and
+            other agreements; or protect the rights, property, or safety of Novaware, our users, or others. This
+            includes exchanging information with other companies and organizations for fraud protection.
+
+            Other than as set out above, you will receive notice when personal information about you might be shared
+            with third parties, and you will have an opportunity to choose not to share the information.
+
+        </p>
+
+        <p>
+            How Secure Is Information About Me?
+
+            We design our systems with your security and privacy in mind.
+
+            We work to protect the security of your personal information during transmission by using encryption
+            protocols and software.
+            We maintain physical, electronic, and procedural safeguards in connection with the collection, storage, and
+            disclosure of personal customer information. Our security procedures mean that we may
+            occasionally request proof of identity before we disclose personal information to you.
+            Our devices offer security features to protect them against unauthorized access and loss of data. You can
+            control these features and configure them based on your needs.
+            It is important for you to protect against unauthorized access to your password and to your computers,
+            devices, and applications. Be sure to sign off when finished using a shared computer.
+
+        </p>
+
+        <p>
+
+            What About Advertising? </br>
+
+            Third-Party Advertisers and Links to Other Websites: Novaware Services may include third-party advertising
+            and links to other websites and apps. Third-party advertising partners may
+            collect information about you when you interact with their content, advertising, and services.
+
+        </p>
+
+        <p>
+
+
+            What Information Can I Access?
+
+            You can access your information, including your name, address, payment options, profile information,
+            assistance history in the "Your Account" section of the website.
+
+        </p>
+        <p>
+
+            If you have any questions as to how we collect and use your personal information, please contact our
+            Customer Service . Many of our Novaware Services also include settings that provide you with options
+            as to how your information is being used.
+
+            As described above, you can choose not to provide certain information, but then you might not be able to
+            take advantage of many of the Novaware Services.
+            You can add or update certain information on pages such as those referenced in What Information Can I
+            Access?. When you update information, we usually keep a copy of the prior version for our records.
+
+
+
+            In addition, to the extent required by applicable law, you may have the right to request access to or delete
+            your personal data. If you wish to do any of these things, please contact Customer Service .
+            Depending on your data choices, certain services may be limited or unavailable.
+
+
+        </p>
+
+        <p>
+
+            Conditions of Use, Notices, and Revisions
+
+            If you choose to use Novaware Services, your use and any dispute over privacy is subject to this Notice and
+            our Conditions of Use , including limitations on damages,
+            resolution of disputes, and application of the law of the state of Oklahoma. If you have any concern about
+            privacy at Novaware,
+            please contact us with a thorough description, and we will try to resolve it. Our business changes
+            constantly, and our Privacy Notice will change also.
+            You should check our websites frequently to see recent changes. Unless stated otherwise, our current Privacy
+            Notice applies to all information that we have about you
+            and your account. We stand behind the promises we make, however, and will never materially change our
+            policies and practices to make them less protective of customer
+            information collected in the past without the consent of affected customers.
+            Related Practices and Information
+
+            Conditions of Use
+            Help Department
+            Most Recent Post
+            Your Profile and Community Guidelines
+
+            Examples of Information Collected
+
+            Information You Give Us When You Use Novaware Services
+
+        </p>
+
+    </div>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

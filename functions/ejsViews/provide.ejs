@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Provide</title>
+
+
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+
+            #button2 {
+                width: 100%;
+            }
+
+            table {
+                width: -10%;
+            }
+
+            #itemname {
+                width: 200%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                white-space: nowrap;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {}
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 50%;
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+            }
+
+            input {
+                background-color: white;
+                float: left;
+            }
+
+            #itemname {
+                white-space: nowrap;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                white-space: nowrap;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+            
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "provide", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+    <h1 class="display-4" align="center">Complete The Form</h1>
+
+
+    <hr class="my-4">
+
+
+
+    <table align="center">
+        <thead>
+            <th></th>
+            <th>Item</th>
+            <th style="white-space: nowrap;">Days Without</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Email</th>
+            <!-- <th style="white-space: nowrap;">Send Email</th> -->
+        </thead>
+        <tbody>
+
+
+            <% data.forEach(obj => {  %>
+            <form class="form-signin" >
+
+                <tr>
+                    <th></th>
+                    <td id="itemname">
+                        <%= obj.item %>
+                        <input type="hidden" class="form-control" value="<%= obj.item %>" id="item" name="item"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= obj.without %>
+                        <input type="hidden" class="form-control" id="dayswithout" name="dayswithout"
+                            value="<%= obj.without %>" readonly>
+                    </td>
+                    <td>
+                        <%= obj.city %>
+                        <input type="hidden" class="form-control" id="city" name="city" value="<%= obj.city %>"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= obj.state %>
+                        <input type="hidden" class="form-control" id="state" name="state" value="<%= obj.state %>"
+                            readonly>
+                        
+                    </td>
+                    <td>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=<%= obj.email %>
+                            &to=someone@example.com&su=Help-A-Neighbor&body=Hi, I am a member of Help-A-Neighbor and have supplies for you. Please call or text me at <%= userPhone%> to discuss a meeting location.
+                            &bcc=HelpANeighborInfo@gmail.com" 
+                            target="_blank"><%= obj.email %></a>
+                        <!-- <%= obj.email %>                         -->
+                        <input type="hidden" class="form-control" id="email" name="email" value="<%= obj.email %>"
+                            readonly>
+                    </td>
+                    <!-- <td colspan="2">
+                        <button type="submit" id="button2" class="btn btn-primary" target="_blank">Send</button>
+                    </td> -->
+
+
+
+                </tr>
+            </form>
+            <% }) %>
+
+
+
+        </tbody>
+    </table>
+
+
+
+
+
+
+    <br>
+
+    </form>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

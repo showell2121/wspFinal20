@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Signin</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 350px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 550px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 650px;
+                height: 300px;
+                margin-left: 20%;
+                margin-bottom: 5%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 30%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "signin", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+    <div class="jumbotron">
+        <h1 class="display-4">Conditions of Use</h1>
+        <p class="lead">Close Tab to Return to Registation Page</p>
+        <hr class="my-4">
+        <p>
+
+            Welcome to Novaware.com. Novaware.com Services LLC and/or its affiliates ("Novaware") provide website
+            features and other products and services to you when you visit Novaware.com,
+            use Novaware products or services, use Novaware applications for mobile, or use software provided by
+            Novaware in connection with any of the foregoing (collectively, "Novaware Services").
+            Novaware provides the Novaware Services subject to the following conditions.
+            By using Novaware Services, you agree to these conditions. Please read them carefully. </br>
+
+            We offer a wide range of Novaware Services, and sometimes additional terms may apply. When you use an
+            Novaware Service (for example, Your Profile, Novaware devices, or Novaware applications) you also will be subject to
+            the guidelines, terms and agreements applicable to that Novaware Service ("Service Terms"). If these
+            Conditions of Use are inconsistent with the Service Terms, those Service Terms will control.
+        </p>
+        <p>
+            <b>PRIVACY</b> </br>
+
+            Please review our <a href="/privacy" target="_blanck">Privacy Notice</a>, which also governs your use of Novaware Services, to understand our
+            practices.
+
+        </p>
+
+        <p>
+            <b>ELECTRONIC COMMUNICATIONS</b> </br>
+
+            When you use Novaware Services, or send e-mails, text messages, and other communications from your desktop
+            or mobile device to us, you may be communicating with us electronically. You consent to receive
+            communications from us electronically, such as e-mails, texts, mobile push notices, or notices and messages
+            on this site or through the other Novaware Services, such as our Message Center, and you can retain copies
+            of these communications for your records. You agree that all agreements, notices, disclosures, and other
+            communications that we provide to you electronically satisfy any legal requirement that such communications
+            be in writing.
+
+        </p>
+
+        <p>
+            <b>COPYRIGHT</b> </br>
+
+            All content included in or made available through any Novaware Service, such as text, graphics, logos,
+            button icons, images, audio clips, digital downloads, data compilations, and software is the property of
+            Novaware or its content suppliers and protected by United States and international copyright laws. The
+            compilation of all content included in or made available through any Novaware Service is the exclusive
+            property of Novaware and protected by U.S. and international copyright laws.
+
+        </p>        
+        
+        <p>
+            <b>LICENSE AND ACCESS</b></br>
+
+
+            Subject to your compliance with these Conditions of Use and any Service Terms, and your payment of any
+            applicable fees, Novaware or its content providers grant you a limited, non-exclusive, non-transferable,
+            non-sublicensable license to access and make personal and non-commercial use of the Novaware Services. This
+            license does not include any resale or commercial use of any Novaware Service, or its contents; any
+            collection and use of any product listings, descriptions, or prices; any derivative use of any Novaware
+            Service or its contents; any downloading, copying, or other use of account information for the benefit of
+            any third party; or any use of data mining, robots, or similar data gathering and extraction tools. All
+            rights not expressly granted to you in these Conditions of Use or any Service Terms are reserved and
+            retained by Novaware or its licensors, suppliers, publishers, rightsholders, or other content providers. No
+            Novaware Service, nor any part of any Novaware Service, may be reproduced, duplicated, copied, sold, resold,
+            visited, or otherwise exploited for any commercial purpose without express written consent of Novaware. You
+            may not frame or utilize framing techniques to enclose any trademark, logo, or other proprietary information
+            (including images, text, page layout, or form) of Novaware without express written consent. You may not use
+            any meta tags or any other "hidden text" utilizing Novaware's name or trademarks without the express written
+            consent of Novaware. You may not misuse the Novaware Services. You may use the Novaware Services only as
+            permitted by law. The licenses granted by Novaware terminate if you do not comply with these Conditions of
+            Use or any Service Terms.
+
+        </p>
+        <p>
+            <b>YOUR ACCOUNT</b></br>
+
+
+            You may need your own Novaware account to use certain Novaware Services, and you may be required to be
+            logged in to the account. 
+            You are responsible for maintaining the confidentiality of your account and password and for restricting
+            access to your account, and you agree to accept responsibility for all activities that occur under your
+            account or password. If you are under 18, you may use the Novaware Services
+            only with involvement of a parent or guardian. Parents and guardians may create profiles for teenagers in
+            their Novaware Household. Alcohol post are prohibited. Novaware reserves the
+            right to refuse service, terminate accounts, terminate your rights to use Novaware Services, remove or edit
+            content, or cancel orders in its sole discretion.
+
+        </p>        
+        
+        <p>
+            <b>PERSONAL RISK</b></br>
+
+
+            All request assistance forms from Novaware are made pursuant to a personal contract. Novaware and afflinats are not responsible for 
+            and damage done to you or your property. You receive items for users at your own risk. Novaware suggest meeting in a well 
+            populated area away from your house. 
+
+        </p>
+        
+
+    </div>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

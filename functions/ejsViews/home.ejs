@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Home</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 350px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 550px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 650px;
+                height: 300px;
+                margin-left: 20%;
+                margin-bottom: 5%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 30%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    
+
+    <%- include("./partials/nav.ejs", {page: "home", user}) %>
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+
+    <div class="jumbotron">
+
+        <h1 class="display-4">Welcome <%= user.name %>,</h1>
+        <p class="lead">Welcome to Help-A-Neighbor, where you can find community resources provided by 
+            neighbors for neighbors. Here, anyone who is currently deprived of basic needs can request 
+            a specific need and another person can fulfill this need, all at the touch of a button. 
+            These needs can range from food, toiletries, housing, jobs, childcare, transportation, to 
+            anything one might need at a time of struggle. All we ask is that the need is of good taste, 
+            be a real need, and be acceptable for all eyes to see; this really is a place to be the hands 
+            and feet of Jesus. If you need a job, list your skills. If you have one to offer, share that 
+            job opportunity. And, by the way, if your business is struggling, feel free to share the beauty 
+            of what your business does. Everyone who needs a helping hand is welcome here. By the way, 
+            while you’re here, go ahead and Help-A-Neighbor.</p>
+        <hr class="my-4">
+        <p>Click 'Request Assistance' in the menu bar if you need supplies.</p>
+        <p>Click 'Provide Assistance' in the menu bar to select the individual you would like to assist.</p>
+        
+      </div>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>
