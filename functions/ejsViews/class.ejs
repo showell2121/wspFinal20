@@ -65,10 +65,77 @@
         <p style="color:red; "> <%= error %></p>
 
     </div>
+    <% }  %>
 
 
+        <form class="form-signin" action="/signin" method="POST">
 
-    <% } %>
+
+            <table align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <td></td>
+    
+                        <td colspan="1" align="right">
+                            <label>Email: </label>
+                        </td>
+    
+                        <td></td>
+                        <td colspan="1">
+                            <input type="email" class="form-control" id="email" name="email" minlength="4"
+                                placeholder="Must Contain @">
+                        </td>
+                        <td></td>
+    
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td colspan="1" align="right">
+                            <label>Password: </label>
+                        </td>
+                        <td></td>
+                        <td colspan="1">
+                            <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2">
+                            <button type="submit" id="button2" class="btn btn-primary">Sign In</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2">
+                            <a href='/register'>Create Account</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td></td>
+                        <td></td>
+                        <td colspan="2">
+                            <a href='/signup'>Forgot Password</a>
+                        </td>
+                    </tr>
+    
+                </tbody>
+            </table>   
+    
+            <br>
+    
+        </form>
+
+      
 
 
     <!-- Gets bootstrap footer file -->
