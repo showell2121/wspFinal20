@@ -11,7 +11,7 @@
 
     <title>Register</title>
     <style>
-        @media (min-width: 300px) and (max-width: 1199px) {
+       @media (min-width: 300px) and (max-width: 768px) {
 
             #a1 {
                 margin-right: 150px;
@@ -40,12 +40,15 @@
 
             #b1 {
                 width: 100%;
+            }
+            #title{
+                margin-left: 20%;
             }
 
         }
 
         /* Medium devices (tablets, less than 992px) */
-        @media (min-width: 1200px) {
+        @media (min-width: 769px) and (max-width: 991.98px) {
 
             #a1 {
                 margin-right: 150px;
@@ -74,11 +77,14 @@
 
             #b1 {
                 width: 100%;
+            }
+            #title{
+                margin-left: 20%;
             }
 
         }
 
-        @media (min-width: 992px) {
+        @media (min-width:992px) {
 
             #a1 {
                 margin-right: 150px;
@@ -107,6 +113,9 @@
 
             #b1 {
                 width: 100%;
+            }
+            #title{
+                margin-left: 15%;
             }
 
 
@@ -128,7 +137,9 @@
 
 
     <div class="jumbotron">
-        <h1 align="center" class="display-4">Create Account</h1>
+        <h1 align="center" class="display-4" id="title">Create Account</h1>
+
+
 
         <form class="form-signin" action="/register" method="POST">
 
@@ -140,131 +151,59 @@
                     <tr>
                         <th></th>
                         <td colspan="1">
-                            <label style="margin-right: 5px; ">Email: </label>
+                            <label style="margin-right: 5px; ">Classification: </label>
                         </td>
                         <td colspan="1">
-                            <input id="a1" type="email" class="form-control" id="email" name="email"
-                                placeholder="Must Contain @">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td colspan="1">
-                            <label style="margin-right: 5px; ">Password: </label>
-                        </td>
-                        <td>
-                            <input id="a2" type="password" class="form-control" id="password" name="password">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td colspan="1">
-                            <label style="margin-right: 5px; ">Confirm Password: </label>
-                        </td>
-                        <td>
-                            <input type="password" id="a3" class="form-control" id="password2" name="password2">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td colspan="1">
-                            <label style="margin-right: 5px; ">Telephone: </label>
-                        </td>
-                        <td>
-                            <input type="tel" id="a4" class="form-control" id="phoneNumber" name="phoneNumber"
-                                placeholder="10 digits: 4051111111">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td colspan="1">
-                            <label style="margin-right: 5px; ">City: </label>
-                        </td>
-                        <td>
-                            <input type="text" id="a5" class="form-control" id="city" name="city">
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td colspan="1">
-                            <label style="margin-right: 5px; ">State: </label>
-                        </td>
-                        <td>
                             <div class="dropdown">
-                                <select class="form-control" name="state">
+                                <select class="form-control" name="classification" onchange="classifi()" id="classification">
                                     <option value="Select">---Select---</option>
-                                    <option value="Alabama">Alabama - AL</option>
-                                    <option value="Alaska">Alaska - AK</option>
-                                    <option value="Arizona">Arizona - AZ</option>
-                                    <option value="Arkansas">Arkansas - AR</option>
-                                    <option value="California">California - CA</option>
-                                    <option value="Colorado">Colorado - CO</option>
-                                    <option value="Connecticut">Connecticut - CT</option>
-                                    <option value="Delaware">Delaware - DE</option>
-                                    <option value="Florida">Florida - FL</option>
-                                    <option value="Georgia">Georgia - GA</option>
-                                    <option value="Hawaii">Hawaii - HI</option>
-                                    <option value="Idaho">Idaho - ID</option>
-                                    <option value="Illinois">Illinois - IL</option>
-                                    <option value="Indiana">Indiana - IN</option>
-                                    <option value="Iowa">Iowa - IA</option>
-                                    <option value="Kansas">Kansas - KS</option>
-                                    <option value="Kentucky">Kentucky - KY</option>
-                                    <option value="Louisiana">Louisiana - LA</option>
-                                    <option value="Maine">Maine - ME</option>
-                                    <option value="Maryland">Maryland - MD</option>
-                                    <option value="Massachusetts">Massachusetts - MA</option>
-                                    <option value="Michigan">Michigan - MI</option>
-                                    <option value="Minnesota">Minnesota - MN</option>
-                                    <option value="Mississippi">Mississippi - MS</option>
-                                    <option value="Missouri">Missouri - MO</option>
-                                    <option value="Montana">Montana - MT</option>
-                                    <option value="Nebraska">Nebraska - NE</option>
-                                    <option value="Nevada">Nevada - NV</option>
-                                    <option value="New Hampshir">New Hampshire - NH</option>
-                                    <option value="New Jersey">New Jersey - NJ</option>
-                                    <option value="New Mexico">New Mexico - NM</option>
-                                    <option value="New York">New York - NY</option>
-                                    <option value="North Carolina">North Carolina - NC</option>
-                                    <option value="North Dakota">North Dakota - ND</option>
-                                    <option value="Ohio">Ohio - OH</option>
-                                    <option value="Oklahoma">Oklahoma - OK</option>
-                                    <option value="Oregon">Oregon - OR</option>
-                                    <option value="Pennsylvania">Pennsylvania - PA</option>
-                                    <option value="Rhode Island">Rhode Island - RI</option>
-                                    <option value="South Carolina">South Carolina - SC</option>
-                                    <option value="South Dakota">South Dakota - SD</option>
-                                    <option value="Tennessee">Tennessee - TN</option>
-                                    <option value="Texas">Texas - TX</option>
-                                    <option value="Utah">Utah - UT</option>
-                                    <option value="Vermont">Vermont - VT</option>
-                                    <option value="Virginia">Virginia - VA</option>
-                                    <option value="Washington">Washington - WA</option>
-                                    <option value="oWest Virginiane">West Virginia - WV</option>
-                                    <option value="Wisconsin">Wisconsin - WI</option>
-                                    <option value="Wyoming">Wyoming - WY</option>
+                                    <option value="prof">Professor</option>
+                                    <option value="stud">Student</option>
 
                                 </select>
 
                             </div>
                         </td>
                     </tr>
-
-
                     <tr>
                         <th></th>
-                        <td>
-
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden; " id="l1">Email: </label>
                         </td>
-                        <td>
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="terms">
-                                <label class="form-check-label" id="a5" for="exampleCheck1">Agree to Novaware's <a
-                                        href="/conditions" target="_blank">Conditions of Use</a> and
-                                    <a href="/privacy" target="_blank">Privacy Notice.</a> </label>
-                            </div>
+                        <td colspan="1">
+                            <input type="email" class="form-control" id="a1" name="email" placeholder="Must Contain @"
+                                style="visibility: hidden;">
                         </td>
                     </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden;" id="l2">Password: </label>
+                        </td>
+                        <td>
+                            <input type="password" class="form-control" id="a2" name="password"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden;" id="l3">Confirm Password: </label>
+                        </td>
+                        <td>
+                            <input type="password" class="form-control" id="a3" name="password2"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden; " id="l4"> </label>                                                    </td>
+                        <td>
+                            <input type="number" class="form-control" id="a4" minlength="2" name="id"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>                   
 
                     <tr>
                         <th></th>
@@ -272,7 +211,8 @@
 
                         </td>
                         <td>
-                            <button type="submit" id="b1" class="btn btn-primary">Register</button>
+                            <button type="submit" id="b1" class="btn btn-primary"
+                                style="visibility: hidden;">Register</button>
                         </td>
                     </tr>
                 </tbody>
@@ -287,16 +227,53 @@
         </form>
     </div>
 
+    <script>
+
+        function classifi() {
+
+            let value = document.getElementById("classification").value
+
+            document.getElementById("l1").style.visibility = "hidden"
+            document.getElementById("a1").style.visibility = "hidden"
+            document.getElementById("l2").style.visibility = "hidden"
+            document.getElementById("a2").style.visibility = "hidden"
+            document.getElementById("l3").style.visibility = "hidden"
+            document.getElementById("a3").style.visibility = "hidden"
+            document.getElementById("a4").style.visibility = "hidden"
+            document.getElementById("l4").style.visibility = "hidden"
+            document.getElementById("b1").style.visibility = "hidden"
+            
+
+            if (value !== "Select") {               
+
+                document.getElementById("l1").style.visibility = "visible"
+                document.getElementById("a1").style.visibility = "visible"
+                document.getElementById("l2").style.visibility = "visible"
+                document.getElementById("a2").style.visibility = "visible"
+                document.getElementById("l3").style.visibility = "visible"
+                document.getElementById("a3").style.visibility = "visible"
+                document.getElementById("a4").style.visibility = "visible"
+                document.getElementById("b1").style.visibility = "visible"
+
+                if (value === "prof") {
+                    document.getElementById("l4").textContent = "Employee ID:"
+                    document.getElementById("l4").style.visibility = "visible"
+                } else if (value === "stud") {
+                    document.getElementById("l4").textContent = "Student ID:"
+                    document.getElementById("l4").style.visibility = "visible"
+                }
+
+            }
 
 
+        }
 
 
-
-
-
+    </script>
 
     <!-- Gets bootstrap footer file -->
     <%- include("./partials/footer.ejs") %>
+
 </body>
 
 </html>

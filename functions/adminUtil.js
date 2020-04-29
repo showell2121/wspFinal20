@@ -12,29 +12,40 @@ admin.initializeApp({
 });
 
 
-async function createUser(req, res) {
+async function createUser(req, res, user) {
 
   //get values from signup from
-  const email = req.body.email;
+  //needed to create a user
+  const email = user.email;
   const password = req.body.password;
-  const displayName = req.body.displayName;
-  const phoneNumber = req.body.phoneNumber;
-  const photoURL = req.body.photoURL;
+
+  console.log("////////////////////user and pass " , email , password)
 
   try {
 
+    //creates user
     await admin.auth().createUser(
-      { email, password, displayName, phoneNumber, photoURL }
+      {email, password}
     )
 
-    res.redirect("/newUser");
+    //checks if user is professor or student
+    if(user.classify === "prof"){
+     
+      collection = admin.firestore().collection(Constants.COLL_PROF);
+      await collection.doc().set(user);           
 
-    //res.send('Create!');
+    }else{
+      
+      collection = admin.firestore().collection(Constants.COLL_STUD);
+      await collection.doc().set(user);      
+    }   
   } catch (e) {
-    res.render('signup.ejs', { error: e, user: false, page: 'signup' })
+    res.render('login.ejs', { error: e, user: false, page: 'login' })    
+
     //res.send(JSON.stringify(e));    
   }
-
+  //redirect to login page
+  res.redirect("/login"); 
 
 }
 

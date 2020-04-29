@@ -59,7 +59,7 @@ firebase.initializeApp(firebaseConfig);
 
 //requires constants file
 const Constants = require("./myconstants.js");
-///////////////////////////////////////////End firebase////////////// 
+///////////////////////////////////////End firebase
 
 
 //////////////////////////////////////default Page
@@ -70,8 +70,16 @@ app.get('/', (req, res) => {
 
 });
 
-//////////////////////////////////////////Signin
-app.post("/signin", async (req, res) => {
+
+//////////////////////////////////////////Login
+app.get('/login', (req, res) => {
+
+    res.setHeader('Cache-Control', 'private');
+    res.render('login.ejs', { user: null, error: false });
+})
+
+
+app.post("/login", async (req, res) => {
 
     //variables
     const email = req.body.email;
@@ -100,7 +108,7 @@ app.post("/signin", async (req, res) => {
     } catch (e) {
         //set session for page
         res.setHeader('Cache-Control', 'private');
-        res.render('signin.ejs', { user: null, error: "Invalid User. Create Account" });
+        res.render('login.ejs', { user: null, error: "Invalid Email or Password" + e });
     }
 
 
@@ -114,37 +122,37 @@ app.post("/signin", async (req, res) => {
     //console.log("/////////email: ", email, "   /////////////// diaplyname: ", displayName)
 
 
-    //Read from database
-    await firebase.firestore().collection(Constants.COLL_USERINFO).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
+    // //Read from database
+    // await firebase.firestore().collection(Constants.COLL_USERINFO).get()
+    //     .then((snapshot) => {
+    //         snapshot.forEach((doc) => {
 
 
-                //console.log("Before if statement. //////////////////////////////");
-                //console.log("Email: ", email, " DocEmail: ", doc.data().email);
-                if (doc.data().email === email) {
-                    //console.log("////////////////////////////////////////////////Initialize Valuees" )
+    //             //console.log("Before if statement. //////////////////////////////");
+    //             //console.log("Email: ", email, " DocEmail: ", doc.data().email);
+    //             if (doc.data().email === email) {
+    //                 //console.log("////////////////////////////////////////////////Initialize Valuees" )
 
-                    req.session.city = doc.data().city;
-                    req.session.state = doc.data().state;
-                    req.session.email = doc.data().email;
-                    req.session.number = doc.data().phoneNumber;
-                    req.session.terms = doc.data().terms;
-                    req.session.displayName = displayName;
+    //                 req.session.city = doc.data().city;
+    //                 req.session.state = doc.data().state;
+    //                 req.session.email = doc.data().email;
+    //                 req.session.number = doc.data().phoneNumber;
+    //                 req.session.terms = doc.data().terms;
+    //                 req.session.displayName = displayName;
 
-                }
-                //console.log("////////////doc city", doc.city, '=>', doc.data());
+    //             }
+    //             //console.log("////////////doc city", doc.city, '=>', doc.data());
 
-            });
+    //         });
 
-            //return value so deploye does not get error
-            return;
-        })
-        .catch((e) => {
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render('signin.ejs', { user: null, error: e + " :Could not read" });
-        });
+    //         //return value so deploye does not get error
+    //         return;
+    //     })
+    //     .catch((e) => {
+    //         //set session for page
+    //         res.setHeader('Cache-Control', 'private');
+    //         res.render('signin.ejs', { user: null, error: e + " :Could not read" });
+    //     });
 
     //console.log("////////////////////////////////////////////////////////////////////////////////////")    
 
@@ -157,6 +165,30 @@ app.post("/signin", async (req, res) => {
 
 });
 
+app.get("/resetPass", (req, res) => {
+
+    res.render("passReset.ejs", { user: null, error: false })
+})
+app.post("/resetPass", async (req, res) => {
+
+    var email = req.body.email;
+
+    if (email.length < 6 || !email.includes(".")) {
+
+        res.render('passReset.ejs', { user: null, error: "Email Must Contain @ and Domain Name e.g .com" });
+    } else {
+
+        try {
+            await firebase.auth().sendPasswordResetEmail(email);
+            res.render("login.ejs", { user: null, error: "Check Email To Reset Password" });
+        } catch (err) {
+            res.render('passReset.ejs', { user: null, error: "User Email Does Not Exist" });
+        }
+    }
+
+
+})
+
 /////////////////////////////////////Register
 app.get('/register', (req, res) => {
 
@@ -168,20 +200,14 @@ app.get('/register', (req, res) => {
 
 app.post("/register", async (req, res) => {
 
+    const classify = req.body.classification;
     const email = req.body.email;
     const pass = req.body.password;
     const pass2 = req.body.password2;
-    const phoneNumber = req.body.phoneNumber;
-    const terms = req.body.terms;
-    const state = req.body.state;
-    const city = req.body.city;
+    const id = req.body.id;
 
-
-    //console.log("city value: ", city);
-
-
-
-    if (email.length < 4) {
+    //checks for validation
+    if (email.length < 6) {
         //set session for page
         res.setHeader('Cache-Control', 'private');
         res.render('register.ejs', { user: null, error: "Email Must Contain @ and Domain Name e.g .com" });
@@ -196,58 +222,23 @@ app.post("/register", async (req, res) => {
         res.setHeader('Cache-Control', 'private');
         res.render('register.ejs', { user: null, error: "Passwords Do Not Match" });
 
-    } else if (phoneNumber.length !== 10) {
+    } else if (id.length < 2) {
         //set session for page
         res.setHeader('Cache-Control', 'private');
         //console.log(phoneNumber.length)
-        res.render('register.ejs', { user: null, error: "Phone Number Must be 10 digits with Area Code" });
+        res.render('register.ejs', { user: null, error: "Invalid Id" });
 
-    } else if (city.length < 3) {
-        //set session for page
-        res.setHeader('Cache-Control', 'private');
-        //console.log("Terms " , terms);
-        res.render('register.ejs', { user: null, error: "Please Enter a Valid City" });
-
-    } else if (state === "Select") {
-        //set session for page
-        res.setHeader('Cache-Control', 'private');
-        //console.log("Terms " , terms);
-        res.render('register.ejs', { user: null, error: "Please Select a Valid State" });
-
-    } else if (terms !== "on") {
-        //set session for page
-        res.setHeader('Cache-Control', 'private');
-        //console.log("Terms " , terms);
-        res.render('register.ejs', { user: null, error: "Need to Check Box and Agree to Terms and Conditions" });
     }
 
-    //save data to firestore
-    try {
-
-        const user = {
-            email: email,
-            phoneNumber: phoneNumber,
-            city: city,
-            state: state,
-            terms: terms,
-            timestamp: firebase.firestore.Timestamp.fromDate(new Date()),
-        }
-
-
-        //write data to database
-        const collection = firebase.firestore().collection(Constants.COLL_USERINFO);
-        await collection.doc().set(user);
-
-        //res.render('signin.ejs', { user: false, error: 'Account Created! Please Signin' })
-
-    } catch (e) {
-        //set session for page
-        res.setHeader('Cache-Control', 'private');
-        res.render('register.ejs', { error: e + "firestore", user: false })
+    //create user
+    const user = {
+        email: email,
+        classify: classify,
+        id: id,
     }
 
     //double call back causes Error:   Can't set headers after they are sent. node js 
-    return adminUtil.createUser(req, res);
+    return adminUtil.createUser(req, res, user);
 
 });
 
@@ -282,163 +273,7 @@ app.get('/home', authAndRedirectSignIn, (req, res) => {
 
 
 
-////////////////////////////////////////////////request assistance
-app.get('/request', authAndRedirectSignIn, (req, res) => {
 
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render("request.ejs", { user: req.decodedIdToken, error: false })
-
-});
-
-//////////////////////////////////////////////////submit Item
-app.post('/request', authAndRedirectSignIn, async (req, res) => {
-
-    const user = {
-        item: req.body.item,
-        without: req.body.need,
-        email: req.session.email,
-        city: req.session.city,
-        state: req.session.state
-    }
-
-
-    if (user.item === null || user.item < 2) {
-        res.setHeader('Cache-Control', 'private');
-        res.render("request.ejs", { user: req.decodedIdToken, error: "Item: Must Be Adleast 2 Characters" })
-    }
-    else if (user.without === "Select") {
-        res.setHeader('Cache-Control', 'private');
-        res.render("request.ejs", { user: req.decodedIdToken, error: "Need Level: Must Be Selected" })
-    } else {
-
-        //save data to firestore
-        try {
-
-            //write data to database
-            const collection = firebase.firestore().collection(Constants.COLL_REQUEST);
-            await collection.doc().set(user);
-
-
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render("request.ejs", { user: req.decodedIdToken, error: "Item Was Successfully Added" });
-
-
-        } catch (e) {
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render("request.ejs", { user: req.decodedIdToken, error: e });
-        }
-
-    }
-
-});
-
-app.get("/work", authAndRedirectSignIn, async (req, res) => {
-
-    let workers = [];
-
-    //read from database
-    var collection = await readDB(Constants.COLL_WORK);
-
-    collection.forEach((doc) => {
-        console.log("//////////////////////////////////////// ", doc.data().name)
-        workers.push({ name: doc.data().name, phone: doc.data().phone, work: doc.data().workType })
-
-    });
-
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render("work.ejs", { user: req.decodedIdToken, error: false, workers });
-
-});
-
-app.post("/work", authAndRedirectSignIn, async (req, res) => {
-
-    let workers = [];
-    var collection;
-
-    const user = {
-        name: req.body.name,
-        phone: req.body.phone,
-        workType: req.body.workType,
-    }
-
-
-    if (user.name < 3) {        
-
-        //read from database
-        collection = await readDB(Constants.COLL_WORK);
-
-        collection.forEach((doc) => {
-            console.log("//////////////////////////////////////// ", doc.data().name)
-            workers.push({ name: doc.data().name, phone: doc.data().phone, work: doc.data().workType })
-
-        });
-
-        res.setHeader('Cache-Control', 'private');
-        res.render("work.ejs", { user: req.decodedIdToken, error: "Name Must Have 3 Characters", workers });
-
-    } else if (user.phone.length !== 10) {
-
-        
-
-        //read from database
-        collection = await readDB(Constants.COLL_WORK);
-
-        collection.forEach((doc) => {
-            console.log("//////////////////////////////////////// ", doc.data().name)
-            workers.push({ name: doc.data().name, phone: doc.data().phone, work: doc.data().workType })
-
-        });
-
-        res.setHeader('Cache-Control', 'private');
-        res.render("work.ejs", { user: req.decodedIdToken, error: "Phone Must Be 10 Digits", workers });
-
-    } else if (user.workType.length < 5) {       
-
-        //read from database
-        collection = await readDB(Constants.COLL_WORK);
-
-        collection.forEach((doc) => {
-            console.log("//////////////////////////////////////// ", doc.data().name)
-            workers.push({ name: doc.data().name, phone: doc.data().phone, work: doc.data().workType })
-
-        });
-        res.setHeader('Cache-Control', 'private');
-        res.render("work.ejs", { user: req.decodedIdToken, error: "Occupation Must Be 5 Characters", workers });
-
-    } else {
-        //save data to firestore
-        try {
-
-            //write data to database
-            collection = firebase.firestore().collection(Constants.COLL_WORK);
-            await collection.doc().set(user);           
-
-            //read from database
-            collection = await readDB(Constants.COLL_WORK);
-            collection.forEach((doc) => {
-                //console.log("//////////////////////////////////////// ", doc.data().name)
-                workers.push({ name: doc.data().name, phone: doc.data().phone, work: doc.data().workType })
-
-            });
-
-
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render("work.ejs", { user: req.decodedIdToken, error: "Occupation Added", workers });
-
-
-        } catch (e) {
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render("work.ejs", { user: req.decodedIdToken, error: "Error Adding Occupation", workers });
-        }
-    } F
-
-})
 
 async function readDB(coll) {
 
@@ -448,45 +283,6 @@ async function readDB(coll) {
 
     return collection;
 }
-
-app.get('/provide', authAndRedirectSignIn, async (req, res) => {
-
-    //create empty list
-    const dataList = [];
-
-
-    //Read from database
-    await firebase.firestore().collection(Constants.COLL_REQUEST).get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-
-                dataList.push({ item: doc.data().item, without: doc.data().without, email: doc.data().email, city: doc.data().city, state: doc.data().state });
-
-                //console.log("///////////////////////////: " , doc.data().item)
-            });
-
-            //return value so deploye does not get error
-            return null;
-        })
-        .catch((e) => {
-            //set session for page
-            res.setHeader('Cache-Control', 'private');
-            res.render('signin.ejs', { user: null, error: e + " :Could not read" });
-        });
-
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render('provide.ejs', { user: req.decodedIdToken, error: false, data: dataList, userPhone: req.session.number });
-
-});
-
-app.get('/about', authRedirect, (req, res) => {
-
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render('signin.ejs', { user: req.decodedIdToken, error: false });
-
-});
 
 /////////////////////////////////////////SignOut
 app.get('/signout', async (req, res) => {
@@ -536,12 +332,11 @@ async function authAndRedirectSignIn(req, res, next) {
         }
     } catch (e) {
         console.log("Error authandRedirect: ", e);
-
     }
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
-    return res.redirect("/b/signin");
+    return res.redirect("/login");
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

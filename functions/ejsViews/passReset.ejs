@@ -11,7 +11,6 @@
 
     <title>Signin</title>
     <style>
-        
         /*Small devices like phones  */
         @media (min-width: 300px) and (max-width: 768px) {
 
@@ -74,6 +73,12 @@
             table {
                 width: 30%;
             }
+            h1{                
+                text-align: center;
+                margin-top: 5%;
+                margin-bottom: 5%;
+                font-style: italic;
+            }
 
         }
     </style>
@@ -81,11 +86,8 @@
 
 <body>
 
-    <%- include("./partials/nav.ejs", {page: "signin", user}) %>
+    <%- include("./partials/nav.ejs", {page: "passReset", user}) %>
 
-
-    <img alt="Image result for uco logo&quot;" id="img" <% /* src="http://localhost:5000/images/pic1.jpg" */ %>
-        src="https://coronaproject-e5e4e.firebaseapp.com/images/pic1.jpg" style="">
 
 
     <% if(error) { %>
@@ -94,13 +96,11 @@
         <p style="color:red; "> <%= error %></p>
 
     </div>
-
-
-
     <% } %>
 
+    <h1>Password Reset</h1>
 
-    <form class="form-signin" action="/signin" method="POST">
+    <form class="form-signin" action="/resetPass" method="POST">
 
 
         <table align="center">
@@ -117,62 +117,28 @@
 
                     <td></td>
                     <td colspan="1">
-                        <input type="email" class="form-control" id="email" name="email" minlength="4"
+                        <input type="email" class="form-control" id="email" name="email" minlength="6"
                             placeholder="Must Contain @">
                     </td>
                     <td></td>
 
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td colspan="1" align="right">
-                        <label>Password: </label>
-                    </td>
-                    <td></td>
-                    <td colspan="1">
-                        <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
-                    </td>
-                </tr>
+                </tr>                
 
                 <tr>
                     <th></th>
                     <td></td>
                     <td></td>
                     <td colspan="2">
-                        <button type="submit" id="button2" class="btn btn-primary">Sign In</button>
+                        <button type="submit" id="button2" class="btn btn-primary">Reset </button>
                     </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">
-                        <a href='/register'>Create Account</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">
-                        <a href='/signup'>Forgot Password</a>
-                    </td>
-                </tr>
+                </tr>                
 
             </tbody>
         </table>
 
-
-
-
-
-
         <br>
 
     </form>
-
-
 
 
 
