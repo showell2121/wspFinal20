@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Provide</title>
+
+
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+
+            #button2 {
+                width: 100%;
+            }
+
+            table {
+                width: -10%;
+            }
+
+            #itemname {
+                width: 200%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                white-space: nowrap;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {}
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 50%;
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+            }
+
+            input {
+                background-color: white;
+                float: left;
+            }
+
+            #itemname {
+                white-space: nowrap;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                white-space: nowrap;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+            
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "homeStud", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+    <h1 class="display-4" align="center">Student</h1>
+
+
+    <hr class="my-4">
+
+
+
+
+
+
+
+    <br>
+
+    </form>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

@@ -242,37 +242,80 @@ app.post("/register", async (req, res) => {
 
 });
 
-//////////////////////////////////////Conditions
-app.get("/conditions", (req, res) => {
-
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render("conditions.ejs", { user: null, error: false })
-})
-
-//////////////////////////////////////Privacy
-app.get("/privacy", (req, res) => {
-
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render("privacy.ejs", { user: null, error: false })
-})
-
-
 /////////////////////////////////////////////Home Page
-app.get('/home', authAndRedirectSignIn, (req, res) => {
+app.get('/home', authAndRedirectSignIn, async (req, res) => {
 
-    //console.log('////////////////////////////////////////////////////////////////////')
+    //console.log('////////////////////////////////////////////////////////////////////' , req.decodedIdToken.email)
     //console.log(req.decodedIdToken)
 
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
-    res.render('home.ejs', { user: req.decodedIdToken, error: false });
+    //declare variables. 
+    req.session.status = "";
+
+    const collection = await readDB(Constants.COLL_USERS)
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+
+                if (req.decodedIdToken.email === doc.data().email) {
+                    //console.log("///////////// IN IF")                    
+                    req.session.status = doc.data().classify
+                }
+
+                //console.log("///////////////////////////: ", doc.data().email, req.decodedIdToken.email)
+            });
+
+            //return value so deployer does not get error
+            return null;
+        })
+        .catch((e) => {
+            //set session for page
+            res.setHeader('Cache-Control', 'private');
+            res.render('login.ejs', { user: null, error: e + " :Could not read" });
+        });
+
+
+    console.log("/////////////status", req.session.status)
+
+    if (req.session.status === "prof") {
+        //set session for page
+        res.setHeader('Cache-Control', 'private');
+        res.render('homeProf.ejs', { user: req.decodedIdToken, error: false });
+    } else {
+
+        //set session for page
+        res.setHeader('Cache-Control', 'private');
+        res.render('homeStud.ejs', { user: req.decodedIdToken, error: false });
+
+    }
+
+
+
 
 });
 
 
 
+
+
+
+
+
+
+
+//////////////////////////////////////Conditions
+// app.get("/conditions", (req, res) => {
+
+//     //set session for page
+//     res.setHeader('Cache-Control', 'private');
+//     res.render("conditions.ejs", { user: null, error: false })
+// })
+
+// //////////////////////////////////////Privacy
+// app.get("/privacy", (req, res) => {
+
+//     //set session for page
+//     res.setHeader('Cache-Control', 'private');
+//     res.render("privacy.ejs", { user: null, error: false })
+// })
 
 
 async function readDB(coll) {

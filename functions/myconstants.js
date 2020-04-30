@@ -4,6 +4,7 @@ module.exports = {
     SYSADMINEMAIL: 'sysadmin@test.com',
     COLL_ORDERS: 'orders', 
     COLL_ABOUT: 'abouts',
+    COLL_USERS: 'users',
     
 
 

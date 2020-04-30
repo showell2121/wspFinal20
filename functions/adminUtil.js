@@ -26,19 +26,10 @@ async function createUser(req, res, user) {
     //creates user
     await admin.auth().createUser(
       {email, password}
-    )
-
-    //checks if user is professor or student
-    if(user.classify === "prof"){
-     
-      collection = admin.firestore().collection(Constants.COLL_PROF);
-      await collection.doc().set(user);           
-
-    }else{
-      
-      collection = admin.firestore().collection(Constants.COLL_STUD);
-      await collection.doc().set(user);      
-    }   
+    )     
+      collection = admin.firestore().collection(Constants.COLL_USERS);
+      await collection.doc().set(user);          
+    
   } catch (e) {
     res.render('login.ejs', { error: e, user: false, page: 'login' })    
 
