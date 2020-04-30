@@ -287,9 +287,9 @@ app.post("/deleteSemester", profAuthRedirect, async (req,res)=>{
     res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
-app.get("/addClass", async (req , res) => {
+app.get("/addClass", profAuthRedirect, async (req , res) => {
 
-    const list = await adminUtil.getSemesters();    
+    const list = await adminUtil.getClasses();    
 
 
     console.log("///////////////LIST?", list[0].data().name)
@@ -297,6 +297,33 @@ app.get("/addClass", async (req , res) => {
     res.setHeader('Cache-Control', 'private');
     res.render('addClass.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, data: list });
 
+})
+
+app.post("/addClass", profAuthRedirect, async (req,res)=>{
+
+    
+    data = {
+        name: req.body.name,
+        id: req.body.id,
+        crn: req.body.crn,
+        depart: req.body.depart,
+        roomNum: req.body.roomNum,
+        start: req.body.start,
+        end: req.body.end,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        days: req.body.days,        
+        prof: req.body.prof,
+        }
+
+    //console.log("///////////////////////", data["name"],data["id"],data["crn"],data["roomNum"],data["depart"] )
+
+    const message = await adminUtil.addClass(data);
+    //const list = await adminUtil.getSemesters();  
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('addClass.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: [] });
 })
 
 

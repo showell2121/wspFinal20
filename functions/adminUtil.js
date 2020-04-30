@@ -152,6 +152,88 @@ async function deleteSemester(name) {
 
 }
 
+async function getClasses() {
+
+  //create list
+  const semest = [];
+
+  //have to give where class to follow firebase DB security rule request.auth.uid == resource.data.uid;
+  const snapshot = await admin.firestore().collection("classes").get();
+  snapshot.forEach(doc => {
+    semest.push(doc)
+  })
+
+  return semest;
+
+}
+
+async function addClass(object){
+
+  let counter = 0;
+
+  try {
+    //read from database to ensure semester does not exist. 
+    counter = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get().then(
+      function (doc) {
+        var counter = 0;
+        // if (doc.data()) {
+        //   counter = 1;
+        //   //console.log("/////////////////////////////if",doc.data())
+        //   return counter
+        // } else {
+        //   //console.log("/////////////////////////////",doc.data())
+        //   counter = 0;
+        //   return counter;
+        // }
+
+        console.log("/////////////////////////////DOC",doc.data().class[0])
+
+      }
+    )
+
+  } catch (err) {
+    return "Could Not Read Semester";
+  }
+
+  console.log("/////////////COUNTER", counter)
+  if (counter === 0) {
+    try {
+      //declare vairables
+      const collection = admin.firestore().collection(Constants.COLL_CLASS);
+      //create empty list
+      const classInfo = [
+        {
+          name: object["name"],
+          id: object["id"],           //Class ID, level of class e.g 4910, mulitple classes 
+          crn: object["crn"],           //Class CRN, specific class
+          department: object["depart"],
+          classStart: object["start"],   //month class starts
+          classEnd: object["end"],
+          startTime: object["startTime"],    //Time class starts
+          endTime: object["endTime"],
+          daysOfClass: object["days"],   //What days of the week is class help
+          classRoom: object["name"],     //Room class is held in. 
+          classProf: object["prof"],
+        },
+      ];
+
+      //create custom doc name
+      await collection.doc(object["name"]).set({ class: classInfo })
+      //return to page. 
+     return "Class Added";
+
+    } catch (err) {
+      console.log("/////////////////////////////////////////////////////")
+      console.log(err)
+     return "Could Not Add Class";
+
+    }
+
+  } else {
+    return"Class Already Exist";
+  }
+
+}
 
 
 ///////////////////////////////////////////////////////////Not Being used
@@ -205,4 +287,4 @@ async function checkOut(data) {
 
 
 
-module.exports = { createUser, addSemester, verifyIdToken, checkOut, getSemesters, deleteSemester };
+module.exports = { createUser, addSemester, verifyIdToken, checkOut, getSemesters, deleteSemester, getClasses, addClass };
