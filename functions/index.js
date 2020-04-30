@@ -289,20 +289,42 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
 
 });
 
-app.get("/addSemester", profAuthRedirect, (req,res) =>{    
+app.get("/addSemester", profAuthRedirect, async (req,res) =>{    
+    
+    const list = await adminUtil.getSemesters();    
 
+
+    console.log("///////////////LIST?", list[0].data().name)
     //set session for page
     res.setHeader('Cache-Control', 'private');
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status });
+    res.render('addSemester.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status, data: list });
 
 
 })
 
-app.post("/addSemester", profAuthRedirect, (req,res)=>{
+app.post("/addSemester", profAuthRedirect, async (req,res)=>{
 
     const name = req.body.semester;
 
-    return adminUtil.addSemester(req, res, name);
+    const message = await adminUtil.addSemester(req, res, name);
+    const list = await adminUtil.getSemesters();  
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('addSemester.ejs', { user: req.decodedIdToken, error: message, classify: req.session.status, data: list });
+})
+
+app.post("/deleteSemester", profAuthRedirect, async (req,res)=>{
+
+    const name = req.body.delName;
+    const obj = req.body.delObject;   
+
+    const message = await adminUtil.deleteSemester(name);
+    const list = await adminUtil.getSemesters();  
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('addSemester.ejs', { user: req.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
 //Test pages without having to change code

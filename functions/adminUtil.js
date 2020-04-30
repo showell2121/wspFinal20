@@ -67,23 +67,23 @@ async function addSemester(req, res, name) {
     counter = await admin.firestore().collection(Constants.COLL_SEMESTER).doc(name).get().then(
       function (doc) {
         var counter = 0;
-        if(doc.data()){
+        if (doc.data()) {
           counter = 1;
           //console.log("/////////////////////////////if",doc.data())
           return counter
-        }else{
+        } else {
           //console.log("/////////////////////////////",doc.data())
           counter = 0;
           return counter;
-        } 
+        }
 
         //console.log("/////////////////////////////",doc.data())
-        
+
       }
     )
 
   } catch (err) {
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: "Could Not Read Semester", classify: req.session.status });
+    return "Could Not Read Semester";
   }
 
   console.log("/////////////COUNTER", counter)
@@ -109,27 +109,48 @@ async function addSemester(req, res, name) {
       ];
 
       //create custom doc name
-      await collection.doc(name).set({ programs: programs })
+      await collection.doc(name).set({ name: name, programs: programs })
       //return to page. 
-      res.render('addSemester.ejs', { user: req.decodedIdToken, error: "Semester Added", classify: req.session.status });
+     return "Semester Added";
 
     } catch (err) {
       console.log("/////////////////////////////////////////////////////")
       console.log(err)
-      res.render('addSemester.ejs', { user: req.decodedIdToken, error: "Could Not Add Semester", classify: req.session.status });
+     return "Could Not Add Semester";
 
     }
 
   } else {
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: "Semester Already Exist", classify: req.session.status });
+    return"Semester Already Exist";
   }
+}
 
+async function getSemesters() {
 
+  //create list
+  const semest = [];
+
+  //have to give where class to follow firebase DB security rule request.auth.uid == resource.data.uid;
+  const snapshot = await admin.firestore().collection("semester").get();
+  snapshot.forEach(doc => {
+    semest.push(doc)
+  })
+
+  return semest;
 
 }
 
+async function deleteSemester(name) {
 
+  try{
+    await admin.firestore().collection("semester").doc(name).delete();
+  }catch(err){
+    return "Could Not Delete Semester";
+  }
+  
+  return "Semester Removed";
 
+}
 
 
 
@@ -184,4 +205,4 @@ async function checkOut(data) {
 
 
 
-module.exports = { createUser, addSemester, verifyIdToken, checkOut };
+module.exports = { createUser, addSemester, verifyIdToken, checkOut, getSemesters, deleteSemester };

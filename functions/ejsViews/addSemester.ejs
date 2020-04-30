@@ -122,7 +122,7 @@
                 <thead>
                 </thead>
                 <tbody>
-                    <tr>          
+                    <tr>
 
                         <td colspan="1" align="right">
                             <label>Name: </label>
@@ -132,12 +132,12 @@
                         <td colspan="1">
                             <input type="text" class="form-control" id="semester" name="semester" min="7"
                                 placeholder="Season+Year e.g Fall2020">
-                        </td>                        
+                        </td>
                         <td colspan="2">
                             <button type="submit" id="button2" class="btn btn-primary">Add</button>
                         </td>
 
-                    </tr>                  
+                    </tr>
 
                 </tbody>
             </table>
@@ -148,153 +148,58 @@
 
 
         <hr class="my-4">
+
+
         <h1 class="display-4" align="center">Current Semester</h1>
 
-        <form class="form-signin" action="/login" method="POST">
-
-
-            <table align="center">
-                <thead>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th></th>
-                        <td></td>
-
-                        <td colspan="1" align="right">
-                            <label>Email: </label>
-                        </td>
-
-                        <td></td>
-                        <td colspan="1">
-                            <input type="email" class="form-control" id="email" name="email" minlength="4"
-                                placeholder="Must Contain @">
-                        </td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td></td>
-                        <td colspan="1" align="right">
-                            <label>Password: </label>
-                        </td>
-                        <td></td>
-                        <td colspan="1">
-                            <input type="password" class="form-control" id="password" name="pass"
-                                placeholder="Password">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th></th>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2">
-                            <button type="submit" id="button2" class="btn btn-primary">Sign In</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2">
-                            <a href='/register'>Create Account</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td></td>
-                        <td></td>
-                        <td colspan="2">
-                            <a href='/resetPass'>Forgot Password</a>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <br>
-
-        </form>
-
-
-    </div>
-
-
-    <form class="form-signin" action="/login" method="POST">
 
 
         <table align="center">
             <thead>
+                <th></th>
+                <th></th>
+                <th style="white-space: nowrap;">Name</th>
+                <th>Action</th>
+                <!-- <th style="white-space: nowrap;">Send Email</th> -->
             </thead>
             <tbody>
-                <tr>
-                    <th></th>
-                    <td></td>
 
-                    <td colspan="1" align="right">
-                        <label>Email: </label>
-                    </td>
 
-                    <td></td>
-                    <td colspan="1">
-                        <input type="email" class="form-control" id="email" name="email" minlength="4"
-                            placeholder="Must Contain @">
-                    </td>
-                    <td></td>
+                <% data.forEach(obj => {  %>
 
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td colspan="1" align="right">
-                        <label>Password: </label>
-                    </td>
-                    <td></td>
-                    <td colspan="1">
-                        <input type="password" class="form-control" id="password" name="pass" placeholder="Password">
-                    </td>
-                </tr>
+                <form class="form-signin" action="/deleteSemester" method="POST">
 
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">
-                        <button type="submit" id="button2" class="btn btn-primary">Sign In</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">
-                        <a href='/register'>Create Account</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th></th>
-                    <td></td>
-                    <td></td>
-                    <td colspan="2">
-                        <a href='/resetPass'>Forgot Password</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <td id="itemname">
+                            <%= obj.data().name %>
+                            <input type="hidden" class="form-control" value="<%= obj.data().name %>" id="item"
+                                name="delName" readonly>
+                            <input type="hidden" class="form-control" value="<%= obj %>" id="item"
+                                name="delObject" readonly>
+                        </td>
+                        <td>
+                            <button type="submit" id="button2" class="btn btn-danger" target="_blank">Delete</button>
+                        </td>
+
+
+                    </tr>
+                </form>
+
+
+                <% }) %>
+
+
 
             </tbody>
         </table>
 
-        <br>
-
-    </form>
 
 
 
-
-
-    <!-- Gets bootstrap footer file -->
-    <%- include("./partials/footer.ejs") %>
+        <!-- Gets bootstrap footer file -->
+        <%- include("./partials/footer.ejs") %>
 </body>
 
 </html>
