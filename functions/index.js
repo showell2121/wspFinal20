@@ -117,47 +117,7 @@ app.post("/login", async (req, res) => {
     for (let i = 0; email.charAt(i) !== "@"; i++) {
 
         displayName = displayName.concat(email.charAt(i));
-    }
-
-    //console.log("/////////email: ", email, "   /////////////// diaplyname: ", displayName)
-
-
-    // //Read from database
-    // await firebase.firestore().collection(Constants.COLL_USERINFO).get()
-    //     .then((snapshot) => {
-    //         snapshot.forEach((doc) => {
-
-
-    //             //console.log("Before if statement. //////////////////////////////");
-    //             //console.log("Email: ", email, " DocEmail: ", doc.data().email);
-    //             if (doc.data().email === email) {
-    //                 //console.log("////////////////////////////////////////////////Initialize Valuees" )
-
-    //                 req.session.city = doc.data().city;
-    //                 req.session.state = doc.data().state;
-    //                 req.session.email = doc.data().email;
-    //                 req.session.number = doc.data().phoneNumber;
-    //                 req.session.terms = doc.data().terms;
-    //                 req.session.displayName = displayName;
-
-    //             }
-    //             //console.log("////////////doc city", doc.city, '=>', doc.data());
-
-    //         });
-
-    //         //return value so deploye does not get error
-    //         return;
-    //     })
-    //     .catch((e) => {
-    //         //set session for page
-    //         res.setHeader('Cache-Control', 'private');
-    //         res.render('signin.ejs', { user: null, error: e + " :Could not read" });
-    //     });
-
-    //console.log("////////////////////////////////////////////////////////////////////////////////////")    
-
-
-    //const currUser = firebase.auth().currentUser;
+    }    
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
@@ -297,7 +257,7 @@ app.get("/addSemester", profAuthRedirect, async (req,res) =>{
     console.log("///////////////LIST?", list[0].data().name)
     //set session for page
     res.setHeader('Cache-Control', 'private');
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status, data: list });
+    res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, data: list });
 
 
 })
@@ -311,7 +271,7 @@ app.post("/addSemester", profAuthRedirect, async (req,res)=>{
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: message, classify: req.session.status, data: list });
+    res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
 app.post("/deleteSemester", profAuthRedirect, async (req,res)=>{
@@ -324,8 +284,22 @@ app.post("/deleteSemester", profAuthRedirect, async (req,res)=>{
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
-    res.render('addSemester.ejs', { user: req.decodedIdToken, error: message, classify: req.session.status, data: list });
+    res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
+
+app.get("/addClass", async (req , res) => {
+
+    const list = await adminUtil.getSemesters();    
+
+
+    console.log("///////////////LIST?", list[0].data().name)
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('addClass.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, data: list });
+
+})
+
+
 
 //Test pages without having to change code
 app.get("/test", (req,res) => {
@@ -423,6 +397,7 @@ async function authAndRedirectSignIn(req, res, next) {
         //checks if valid user
         const decodedIdToken = await adminUtil.verifyIdToken(req.session.idToken)
         if (decodedIdToken.uid) {
+            req.session.decodedIdToken = decodedIdToken;
             req.decodedIdToken = decodedIdToken;
             return next();
         }
