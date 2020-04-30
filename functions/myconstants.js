@@ -1,10 +1,8 @@
-module.exports = {
-    COLL_PROF: "professor", 
-    COLL_STUD: 'student',
-    SYSADMINEMAIL: 'sysadmin@test.com',
-    COLL_ORDERS: 'orders', 
-    COLL_ABOUT: 'abouts',
+module.exports = {    
+    SYSADMINEMAIL: 'sysadmin@test.com',    
     COLL_USERS: 'users',
+    COLL_SEMESTER: 'semester',
+    COLL_CLASS: 'class',
     
 
 

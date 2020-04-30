@@ -269,7 +269,7 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
         .catch((e) => {
             //set session for page
             res.setHeader('Cache-Control', 'private');
-            res.render('login.ejs', { user: null, error: e + " :Could not read" });
+            res.render('login.ejs', { user: null, error: e + " :Could not read" , classify: null });
         });
 
 
@@ -278,19 +278,41 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
     if (req.session.status === "prof") {
         //set session for page
         res.setHeader('Cache-Control', 'private');
-        res.render('homeProf.ejs', { user: req.decodedIdToken, error: false });
+        res.render('homeProf.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status});
     } else {
 
         //set session for page
         res.setHeader('Cache-Control', 'private');
-        res.render('homeStud.ejs', { user: req.decodedIdToken, error: false });
+        res.render('homeStud.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status });
 
     }
 
-
-
-
 });
+
+app.get("/addSemester", profAuthRedirect, (req,res) =>{    
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('addSemester.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status });
+
+
+})
+
+app.post("/addSemester", profAuthRedirect, (req,res)=>{
+
+    const name = req.body.semester;
+
+    return adminUtil.addSemester(req, res, name);
+})
+
+//Test pages without having to change code
+app.get("/test", (req,res) => {
+
+    req.session.status = 'prof'
+    res.setHeader('Cache-Control', 'private');
+    res.render('homeProf.ejs', { user: true, error: false, classify: "prof"});
+
+})
 
 
 
@@ -360,6 +382,15 @@ function authRedirect(req, res, next) {
         next();
         //return to eleminate error for deploy
         return;
+    }
+}
+
+function profAuthRedirect(req, res, next) {    
+
+    if (req.session.status === 'prof') {
+        return next()
+    } else {
+        res.redirect("/")
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
