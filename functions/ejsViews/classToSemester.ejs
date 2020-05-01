@@ -110,7 +110,7 @@
 
 <body>
 
-    <%- include("./partials/nav.ejs", {page: "addClass", user, classify}) %>
+    <%- include("./partials/nav.ejs", {page: "classToSemester", user, classify}) %>
 
     <% if(error) { %>
 
@@ -126,113 +126,9 @@
 
     <div class="jumbotron">
 
-        <h1 class="display-4" align="center">Add Class</h1>
-        <form class="form-signin" action="/addClass" method="POST">
-
-
-            <table align="center" id="tab1">
-                <thead>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="1">
-                            <input type="text" class="form-control" id="name" name="name" min="7"
-                                placeholder="Course Name" required>
-                        </td>
-                        <td colspan="1">
-                            <input type="number" class="form-control" id="id" name="id" min="7" placeholder="Course ID"
-                                required>
-                        </td>
-                        <td colspan="1">
-                            <input type="number" class="form-control" id="crn" name="crn" min="7"
-                                placeholder="Course CRN" required>
-                        </td>
-                        <td colspan="1">
-                            <input type="text" class="form-control" id="depart" name="depart" min="7"
-                                placeholder="Department" required>
-                        </td>
-                        <td colspan="1">
-                            <input type="text" class="form-control" id="roomNum" name="roomNum" min="7"
-                                placeholder="Room Num (MCS115)" required>
-                        </td>
-                    </tr>
-
-                    <tr>
-
-                        <td colspan="1">
-                            <center><label id="startM"><u>Start Month</u> </label></center>
-                            <input type="date" class="form-control" id="start" name="start" min="7"
-                                placeholder="Start Date">
-                        </td>
-                        <td colspan="1">
-                            <center><label id="startM"><u>End Month</u> </label></center>
-                            <input type="date" class="form-control" id="end" name="end" min="7" placeholder="End Date">
-                        </td>
-                        <td colspan="1">
-                            <center><label id="startT"><u>Start Time</u> </label></center>
-                            <input type="time" class="form-control" id="startTime" name="startTime" min="7"
-                                placeholder="Start Time">
-                        </td>
-                        <td colspan="1">
-                            <center><label id="endT"><u>End Time</u> </label></center>
-                            <input type="time" class="form-control" id="endTime" name="endTime" min="7"
-                                placeholder="End Time">
-                        </td>
-                        <td colspan="1">
-                            <center><label id="endT"> <u>Professor</u> </label></center>
-                            <input type="text" class="form-control" id="prof" name="prof" min="7"
-                                placeholder="Dr. Computer">
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="1" align="right">
-                            <label>Days: </label>
-                        </td>
-                        <td colspan="3">
-                            <div class="btn-group" data-toggle="buttons" name="days">
-
-                                <label class="btn active">
-                                    <input type="checkbox" value="M" name="days"> Monday
-                                </label>
-                                <label class="btn">
-                                    <input type="checkbox" value="T" name="days"> Tuesday
-                                </label>
-                                <label class="btn">
-                                    <input type="checkbox" value="W" name="days"> Wednesday
-                                </label>
-                                <label class="btn">
-                                    <input type="checkbox" value="TH" name="days"> Thursday
-                                </label>
-                                <label class="btn">
-                                    <input type="checkbox" value="F" name="days"> Friday
-                                </label>
-                                <label class="btn">
-                                    <input type="checkbox" value="S" name="days"> Saturday
-                                </label>
-                            </div>
-                        </td>
-
-                        <td colspan="1">
-                            <button type="submit" id="button2" class="btn btn-primary">Add</button>
-                        </td>
-
-
-
-
-                    </tr>
-
-
-                </tbody>
-            </table>
-
-            <br>
-
-        </form>
-
+        <h1 class="display-4" align="center"><i>Add Class to a Semester</i></h1>
 
         <hr class="my-4">
-
 
         <h1 class="display-4" align="center">Current Classes</h1>
 
@@ -260,16 +156,17 @@
 
                 <% obj.forEach(val => { %>
 
-                <form class="form-signin" action="/deleteClass" method="POST">
+                <form class="form-signin" action="/addClassSemester" method="POST">
 
                     <tr>
                         <td>
-                            <%= val.name %>                            
-                            <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name" readonly>
+                            <%= val.name %>
+                            <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name"
+                                readonly>
                         </td>
                         <td>
                             <%= val.id %>
-                            <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>                            
+                            <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>
                         </td>
                         <td>
                             <%= val.crn %>
@@ -320,7 +217,22 @@
                             <input type="hidden" class="form-control" value="" id="item" name="delObject" readonly>
                         </td>
                         <td>
-                            <button type="submit" id="button2" class="btn btn-danger" target="_blank">Delete</button>
+                            
+                            <div class="dropdown">
+                                <select class="form-control" name="semester" id="semester">
+                                    <option value="Select">----Select----</option>
+
+                                    <% semest.forEach((doc) => { %>
+                                    
+                                    <option value="<%= doc.data().name %>"><%= doc.data().name %></option>
+                                    
+
+                                    <% }) %>
+                                </select>
+
+                            </div>
+                            
+                            <button type="submit" id="button2" class="btn btn-success" target="_blank">Add</button>
                         </td>
 
 

@@ -254,35 +254,72 @@ async function addClass(object) {
 
 
 
-async function deleteClass(data){
+async function deleteClass(data) {
   //console.log(data.name, data.crn)
 
   let list = []
 
   try {
     const collection = await admin.firestore().collection("classes").doc(data.name).get()
-    .then((doc) =>{
+      .then((doc) => {
 
-      doc.data().class.forEach(inf => {
-        
-        //console.log("in IF", inf.name)  
-        if (data.crn !== inf.crn) {
-          list.push(inf)
-                            
-        }
-      })
-      //console.log("doc", doc.data().class)
+        doc.data().class.forEach(inf => {
 
-    });
+          //console.log("in IF", inf.name)  
+          if (data.crn !== inf.crn) {
+            list.push(inf)
 
-    await admin.firestore().collection("classes").doc(data.name).set({class: list})
-    
+          }
+        })
+        //console.log("doc", doc.data().class)
+
+      });
+
+    await admin.firestore().collection("classes").doc(data.name).set({ class: list })
+
   } catch (err) {
     return "Could Not Delete Class";
   }
 
   //console.log(list)
   return "Class Removed";
+}
+
+async function addClassSemester(data) {
+
+  const list = [
+    {
+      name: data.name,
+      id: data.id,
+      crn: data.crn,
+      depart: data.depart,
+      classRoom: data.classRoom,
+      classStart: data.classStart,
+      classEnd: data.classEnd,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      days: data.days,
+      prof: data.prof,
+    },
+  ]
+
+  const collection = await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).get()
+    .then((doc) => {
+
+      doc.data().programs.forEach((val) => {
+          list.push(val)
+          console.log("///////////////val")
+      })
+      
+    });
+
+  //list.push(data)
+
+  //create custom doc name
+  await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).set({ name: data.semest, programs: list })
+
+  return "Added Class To Semester"
+
 }
 
 
@@ -340,4 +377,4 @@ async function checkOut(data) {
 
 
 
-module.exports = { createUser, verifyIdToken, checkOut, addSemester, getSemesters, deleteSemester, getClasses, addClass, deleteClass };
+module.exports = { createUser, verifyIdToken, checkOut, addSemester, getSemesters, deleteSemester, getClasses, addClass, deleteClass, addClassSemester };

@@ -117,7 +117,7 @@ app.post("/login", async (req, res) => {
     for (let i = 0; email.charAt(i) !== "@"; i++) {
 
         displayName = displayName.concat(email.charAt(i));
-    }    
+    }
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
@@ -229,7 +229,7 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
         .catch((e) => {
             //set session for page
             res.setHeader('Cache-Control', 'private');
-            res.render('login.ejs', { user: null, error: e + " :Could not read" , classify: null });
+            res.render('login.ejs', { user: null, error: e + " :Could not read", classify: null });
         });
 
 
@@ -238,7 +238,7 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
     if (req.session.status === "prof") {
         //set session for page
         res.setHeader('Cache-Control', 'private');
-        res.render('homeProf.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status});
+        res.render('homeProf.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status });
     } else {
 
         //set session for page
@@ -249,12 +249,12 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
 
 });
 
-app.get("/addSemester", profAuthRedirect, async (req,res) =>{    
-    
-    const list = await adminUtil.getSemesters();    
+app.get("/addSemester", profAuthRedirect, async (req, res) => {
+
+    const list = await adminUtil.getSemesters();
 
 
-    console.log("///////////////LIST?", list[0].data().name)
+    //console.log("///////////////LIST?", list[0].data().name)
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, data: list });
@@ -262,34 +262,34 @@ app.get("/addSemester", profAuthRedirect, async (req,res) =>{
 
 })
 
-app.post("/addSemester", profAuthRedirect, async (req,res)=>{
+app.post("/addSemester", profAuthRedirect, async (req, res) => {
 
     const name = req.body.semester;
 
     const message = await adminUtil.addSemester(req, res, name);
-    const list = await adminUtil.getSemesters();  
+    const list = await adminUtil.getSemesters();
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
-app.post("/deleteSemester", profAuthRedirect, async (req,res)=>{
+app.post("/deleteSemester", profAuthRedirect, async (req, res) => {
 
     const name = req.body.delName;
-    const obj = req.body.delObject;   
+    const obj = req.body.delObject;
 
     const message = await adminUtil.deleteSemester(name);
-    const list = await adminUtil.getSemesters();  
+    const list = await adminUtil.getSemesters();
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
-app.get("/addClass", profAuthRedirect, async (req , res) => {
+app.get("/addClass", profAuthRedirect, async (req, res) => {
 
-    const list = await adminUtil.getClasses();    
+    const list = await adminUtil.getClasses();
 
 
     console.log("///////////////LISTname", list[0][1].crn)
@@ -299,13 +299,13 @@ app.get("/addClass", profAuthRedirect, async (req , res) => {
 
 })
 
-app.post("/addClass", profAuthRedirect, async (req,res)=>{
+app.post("/addClass", profAuthRedirect, async (req, res) => {
 
     let days = req.body.days
-    
+
     //console.log("////////////days", days)
 
-    if(days === undefined){
+    if (days === undefined) {
         //console.log("in IF")
         days = []
     }
@@ -319,44 +319,99 @@ app.post("/addClass", profAuthRedirect, async (req,res)=>{
         end: req.body.end,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
-        days: days,        
+        days: days,
         prof: req.body.prof,
-        }
+    }
 
     //console.log("///////////////////////", data["name"],data["id"],data["crn"],data["roomNum"],data["depart"] )
 
     const message = await adminUtil.addClass(data);
-    const list = await adminUtil.getClasses();  
+    const list = await adminUtil.getClasses();
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addClass.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
-app.post("/deleteClass", profAuthRedirect, async (req,res)=>{
+app.post("/deleteClass", profAuthRedirect, async (req, res) => {
 
     const data = {
         crn: req.body.crn,
         name: req.body.name,
     }
-       
+
     //console.log(data.crn)
     const message = await adminUtil.deleteClass(data);
-    const list = await adminUtil.getClasses();  
+    const list = await adminUtil.getClasses();
 
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addClass.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list });
 })
 
+app.get("/classToSemester", profAuthRedirect, async (req, res) => {
+
+
+    const list = await adminUtil.getClasses();
+    const semest = await adminUtil.getSemesters();
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('classToSemester.ejs', { user: req.session.decodedIdToken, error: "", classify: req.session.status, data: list, semest });
+
+
+})
+
+app.post("/addClassSemester", profAuthRedirect, async (req, res) => {
+
+    let days = req.body.daysOfClass
+
+    //console.log("////////////days", days)
+
+    if (days === undefined) {
+        //console.log("in IF")
+        days = []
+    }
+
+    data = {
+        name: req.body.name,
+        id: req.body.id,
+        crn: req.body.crn,
+        depart: req.body.department,
+        classRoom: req.body.classRoom,
+        classStart: req.body.classStart,
+        classEnd: req.body.classEnd,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime,
+        days: days,
+        prof: req.body.classProf,
+        semest: req.body.semester
+    }
+
+    const message = await adminUtil.addClassSemester(data);
+
+    //console.log(data)
+
+
+    const list = await adminUtil.getClasses();
+    const semest = await adminUtil.getSemesters();
+
+    //set session for page
+    res.setHeader('Cache-Control', 'private');
+    res.render('classToSemester.ejs', { user: req.session.decodedIdToken, error: message, classify: req.session.status, data: list, semest });
+
+
+
+})
+
 
 
 //Test pages without having to change code
-app.get("/test", (req,res) => {
+app.get("/test", (req, res) => {
 
     req.session.status = 'prof'
     res.setHeader('Cache-Control', 'private');
-    res.render('homeProf.ejs', { user: true, error: false, classify: "prof"});
+    res.render('homeProf.ejs', { user: true, error: false, classify: "prof" });
 
 })
 
@@ -431,7 +486,7 @@ function authRedirect(req, res, next) {
     }
 }
 
-function profAuthRedirect(req, res, next) {    
+function profAuthRedirect(req, res, next) {
 
     if (req.session.status === 'prof') {
         return next()
