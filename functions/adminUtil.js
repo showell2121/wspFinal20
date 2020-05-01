@@ -173,23 +173,25 @@ async function addClass(object){
 
   try {
     //read from database to ensure semester does not exist. 
-    counter = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get().then(
-      function (doc) {
-        var counter = 0;
-        // if (doc.data()) {
-        //   counter = 1;
-        //   //console.log("/////////////////////////////if",doc.data())
-        //   return counter
-        // } else {
-        //   //console.log("/////////////////////////////",doc.data())
-        //   counter = 0;
-        //   return counter;
-        // }
+    counter = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get()
+    .then((doc,counter = 0, i = 0) => { 
 
-        console.log("/////////////////////////////DOC",doc.data().class[0])
+        console.log("/////////////////////////////DOC",doc.data().class[i].crn , object["crn"], i)
 
-      }
-    )
+        doc.data().class.forEach(data =>{
+          console.log(data.crn)
+          if (data.crn === object["crn"]) {
+            console.log("in IF")
+            counter++;            
+          }
+         
+        })
+
+         
+
+        i++       
+
+      })
 
   } catch (err) {
     return "Could Not Read Semester";
@@ -200,6 +202,11 @@ async function addClass(object){
     try {
       //declare vairables
       const collection = admin.firestore().collection(Constants.COLL_CLASS);
+      const collection2 = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get();
+
+      //console.log("////////////////////", collection2.data().class)
+
+
       //create empty list
       const classInfo = [
         {
@@ -216,6 +223,12 @@ async function addClass(object){
           classProf: object["prof"],
         },
       ];
+
+      collection2.data().class.forEach(doc =>{
+        //console.log(doc)
+        classInfo.push(doc)
+      })
+      //classInfo.push(collection2.data().class)
 
       //create custom doc name
       await collection.doc(object["name"]).set({ class: classInfo })

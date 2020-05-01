@@ -301,7 +301,14 @@ app.get("/addClass", profAuthRedirect, async (req , res) => {
 
 app.post("/addClass", profAuthRedirect, async (req,res)=>{
 
-    
+    let days = req.body.days
+
+    //console.log("////////////days", days)
+
+    if(days === undefined){
+        //console.log("in IF")
+        days = []
+    }
     data = {
         name: req.body.name,
         id: req.body.id,
@@ -312,7 +319,7 @@ app.post("/addClass", profAuthRedirect, async (req,res)=>{
         end: req.body.end,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
-        days: req.body.days,        
+        days: days,        
         prof: req.body.prof,
         }
 
