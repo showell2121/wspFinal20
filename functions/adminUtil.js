@@ -111,17 +111,17 @@ async function addSemester(req, res, name) {
       //create custom doc name
       await collection.doc(name).set({ name: name, programs: programs })
       //return to page. 
-     return "Semester Added";
+      return "Semester Added";
 
     } catch (err) {
       console.log("/////////////////////////////////////////////////////")
       console.log(err)
-     return "Could Not Add Semester";
+      return "Could Not Add Semester";
 
     }
 
   } else {
-    return"Semester Already Exist";
+    return "Semester Already Exist";
   }
 }
 
@@ -142,12 +142,12 @@ async function getSemesters() {
 
 async function deleteSemester(name) {
 
-  try{
+  try {
     await admin.firestore().collection("semester").doc(name).delete();
-  }catch(err){
+  } catch (err) {
     return "Could Not Delete Semester";
   }
-  
+
   return "Semester Removed";
 
 }
@@ -167,29 +167,30 @@ async function getClasses() {
 
 }
 
-async function addClass(object){
+async function addClass(object) {
 
   let counter = 0;
 
   try {
     //read from database to ensure semester does not exist. 
     counter = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get()
-    .then((doc,counter = 0, i = 0) => { 
+      .then((doc, counter = 0, values = 0) => {
 
-        console.log("/////////////////////////////DOC",doc.data().class[i].crn , object["crn"], i)
+        console.log("/////////////////////////////Before", doc, doc.data())
+        if (doc.data() != undefined) {
+          doc.data().class.forEach(data => {
+            values++;
+            console.log(data.crn)
+            if (data.crn === object["crn"]) {
+              counter++;
+              //console.log("in IF", counter)                    
+            }
 
-        doc.data().class.forEach(data =>{
-          console.log(data.crn)
-          if (data.crn === object["crn"]) {
-            console.log("in IF")
-            counter++;            
-          }
-         
-        })
+          })
+        }
 
-         
-
-        i++       
+        //console.log("/////////////////////////////After",doc.data().class[i].crn , object["crn"], i)
+        return { counter, values }
 
       })
 
@@ -197,8 +198,8 @@ async function addClass(object){
     return "Could Not Read Semester";
   }
 
-  console.log("/////////////COUNTER", counter)
-  if (counter === 0) {
+  console.log("/////////////COUNTER", counter.counter, counter.values)
+  if (counter.counter === 0) {
     try {
       //declare vairables
       const collection = admin.firestore().collection(Constants.COLL_CLASS);
@@ -224,26 +225,28 @@ async function addClass(object){
         },
       ];
 
-      collection2.data().class.forEach(doc =>{
-        //console.log(doc)
-        classInfo.push(doc)
-      })
+      if (counter.values > 0) {
+        collection2.data().class.forEach(doc => {
+          //console.log(doc)
+          classInfo.push(doc)
+        })
+      }
       //classInfo.push(collection2.data().class)
 
       //create custom doc name
       await collection.doc(object["name"]).set({ class: classInfo })
       //return to page. 
-     return "Class Added";
+      return "Class Added";
 
     } catch (err) {
       console.log("/////////////////////////////////////////////////////")
       console.log(err)
-     return "Could Not Add Class";
+      return "Could Not Add Class";
 
     }
 
   } else {
-    return"Class Already Exist";
+    return "Class Already Exist";
   }
 
 }
