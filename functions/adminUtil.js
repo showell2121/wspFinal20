@@ -155,15 +155,16 @@ async function deleteSemester(name) {
 async function getClasses() {
 
   //create list
-  const semest = [];
+  const classList = [];
 
   //have to give where class to follow firebase DB security rule request.auth.uid == resource.data.uid;
   const snapshot = await admin.firestore().collection("classes").get();
   snapshot.forEach(doc => {
-    semest.push(doc)
+    //console.log("//////////////////////////////classlist", doc.data().class)
+    classList.push(doc.data().class)
   })
 
-  return semest;
+  return classList;
 
 }
 
@@ -198,7 +199,7 @@ async function addClass(object) {
     return "Could Not Read Semester";
   }
 
-  console.log("/////////////COUNTER", counter.counter, counter.values)
+  //console.log("/////////////COUNTER", counter.counter, counter.values)
   if (counter.counter === 0) {
     try {
       //declare vairables
@@ -220,7 +221,7 @@ async function addClass(object) {
           startTime: object["startTime"],    //Time class starts
           endTime: object["endTime"],
           daysOfClass: object["days"],   //What days of the week is class help
-          classRoom: object["name"],     //Room class is held in. 
+          classRoom: object["roomNum"],     //Room class is held in. 
           classProf: object["prof"],
         },
       ];
@@ -250,6 +251,42 @@ async function addClass(object) {
   }
 
 }
+
+
+
+async function deleteClass(data){
+  //console.log(data.name, data.crn)
+
+  let list = []
+
+  try {
+    const collection = await admin.firestore().collection("classes").doc(data.name).get()
+    .then((doc) =>{
+
+      doc.data().class.forEach(inf => {
+        
+        //console.log("in IF", inf.name)  
+        if (data.crn !== inf.crn) {
+          list.push(inf)
+                            
+        }
+      })
+      //console.log("doc", doc.data().class)
+
+    });
+
+    await admin.firestore().collection("classes").doc(data.name).set({class: list})
+    
+  } catch (err) {
+    return "Could Not Delete Class";
+  }
+
+  //console.log(list)
+  return "Class Removed";
+}
+
+
+
 
 
 ///////////////////////////////////////////////////////////Not Being used
@@ -303,4 +340,4 @@ async function checkOut(data) {
 
 
 
-module.exports = { createUser, addSemester, verifyIdToken, checkOut, getSemesters, deleteSemester, getClasses, addClass };
+module.exports = { createUser, verifyIdToken, checkOut, addSemester, getSemesters, deleteSemester, getClasses, addClass, deleteClass };
