@@ -20,7 +20,7 @@
                 margin-left: 10%;
                 margin-bottom: 5%;
 
-            }            
+            }
         }
 
 
@@ -40,8 +40,12 @@
 
             #img {
                 width: 100%;
-                height: 100px;                
+                height: 100px;
                 margin-bottom: 5%;
+            }
+            #tab1 {
+                width: 100%;
+                table-layout: fixed;
             }
         }
     </style>
@@ -49,14 +53,11 @@
 
 <body>
 
-    <%- include("./partials/nav.ejs", {page: "class", user, classify: null}) %>
+    <%- include("./partials/nav.ejs", {page: "home", user, classify}) %>
 
 
 
     <img alt="Image result for uco logo&quot;" id="img" src="http://localhost:5000/images/enroll.png" />
-    
-
-
 
 
     <% if(error) { %>
@@ -68,9 +69,46 @@
     <% }  %>
 
 
-        
+    <form action="/termProgram" method="POST">
 
-      
+    <table id="tab1"> 
+        <tr>
+            <td >
+                <div class="dropdown">
+                    <select class="form-control" name="semester" id="semester">
+                        <option value="Select">Pick A Term</option>
+
+                        <% semest.forEach((doc) => { %>
+
+                        <option value="<%= doc.data().name %>"><%= doc.data().name %></option>
+
+
+                        <% }) %>
+                    </select>
+
+                </div>
+            </td>
+            <td>
+                <div class="dropdown">
+                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                        <option value="Select">Select A Program</option> 
+
+                        <option value="ACCT">Accounting</option>
+                        <option value="BADM">Business Admin</option>
+                        <option value="CMSC">Computer Science</option>
+                        <option value="FRSC">Forensics</option>
+                        <option value="SE">Software Engineering</option>
+
+
+                        
+                    </select>
+
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</form>
 
 
     <!-- Gets bootstrap footer file -->

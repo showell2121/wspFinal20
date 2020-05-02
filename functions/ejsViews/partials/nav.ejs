@@ -11,10 +11,24 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
                
-        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+        <li class="nav-item  <%= page === 'home' ? 'active' : '' %>">
           <a class="nav-link" href="/">Home</a>
         </li>
-        
+        <% if( page === "home") { %>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/" target="_blank">UCO Home</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/" target="_blank">Enrollment</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/dates-and-deadlines" target="_blank">Deadlines</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/exam-schedules" target="_blank">Final Exams</a>
+        </li>
+        <% }%>
+
         <% if(classify === "prof")  {%>
           <li class="nav-item  <%= page === 'addSemester' ? 'active' : '' %>">
             <a class="nav-link" href="/addSemester">Add Semester</a>

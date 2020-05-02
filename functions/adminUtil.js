@@ -140,6 +140,30 @@ async function getSemesters() {
 
 }
 
+async function getSemester(data) {
+
+  //create list
+  const semest = [];
+
+  //have to give where class to follow firebase DB security rule request.auth.uid == resource.data.uid;
+  const snapshot = await admin.firestore().collection("semester").doc(data.term).get()
+  .then((doc) => {
+
+    //console.log(doc.data())
+    doc.data().programs.forEach((doc) => {
+
+      if(doc.depart === data.program){
+        semest.push(doc)
+      }
+    })
+
+  });
+  
+
+  return semest;
+
+}
+
 async function deleteSemester(name) {
 
   try {
@@ -384,4 +408,4 @@ async function checkOut(data) {
 
 
 
-module.exports = { createUser, verifyIdToken, checkOut, addSemester, getSemesters, deleteSemester, getClasses, addClass, deleteClass, addClassSemester };
+module.exports = { createUser, verifyIdToken, checkOut, addSemester, getSemesters, deleteSemester, getClasses, addClass, deleteClass, addClassSemester, getSemester };

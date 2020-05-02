@@ -63,12 +63,43 @@ const Constants = require("./myconstants.js");
 
 
 //////////////////////////////////////default Page
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     //set session for page
+
+    const semest = await adminUtil.getSemesters()
+
     res.setHeader('Cache-Control', 'private');
-    res.render('class.ejs', { user: null, error: false });
+    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest });
 
 });
+
+//Test pages without having to change code
+app.post("/termProgram", async (req, res) => {
+
+    const term = req.body.semester
+    const program = req.body.program
+    const semest = await adminUtil.getSemesters()
+
+    if (term === "Select") {
+
+        res.setHeader('Cache-Control', 'private');
+        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Term", classify: req.session.status, semest });
+
+    }else if(program === "Select"){
+        res.setHeader('Cache-Control', 'private');
+        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Program", classify: req.session.status, semest });
+    }
+
+    const data = {term: term, program: program}
+    const list = await adminUtil.getSemester(data)
+    console.log("//////////////", list)
+
+
+
+    res.setHeader('Cache-Control', 'private');
+    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest });
+
+})
 
 
 //////////////////////////////////////////Login
@@ -406,12 +437,14 @@ app.post("/addClassSemester", profAuthRedirect, async (req, res) => {
 
 
 
+
+
 //Test pages without having to change code
 app.get("/test", (req, res) => {
 
-    req.session.status = 'prof'
-    res.setHeader('Cache-Control', 'private');
-    res.render('homeProf.ejs', { user: true, error: false, classify: "prof" });
+    // req.session.status = 'prof'
+    // res.setHeader('Cache-Control', 'private');
+    // res.render('homeProf.ejs', { user: true, error: false, classify: "prof" });
 
 })
 
