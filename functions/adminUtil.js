@@ -109,7 +109,7 @@ async function addSemester(req, res, name) {
       ];
 
       //create custom doc name
-      await collection.doc(name).set({ name: name, programs: programs })
+      await collection.doc(name).set({ name: name})
       //return to page. 
       return "Semester Added";
 
@@ -303,22 +303,29 @@ async function addClassSemester(data) {
     },
   ]
 
-  const collection = await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).get()
-    .then((doc) => {
+  try {
 
-      doc.data().programs.forEach((val) => {
-          list.push(val)
-          console.log("///////////////val")
-      })
-      
-    });
+    const collection = await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).get()
+      .then((doc) => {
 
-  //list.push(data)
+        if (doc.data().programs) {
+          doc.data().programs.forEach((val) => {
+            list.push(val)
+            console.log("///////////////val")
+          })
+        }
 
-  //create custom doc name
-  await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).set({ name: data.semest, programs: list })
+      });
 
-  return "Added Class To Semester"
+    //list.push(data)
+
+    //create custom doc name
+    await admin.firestore().collection(Constants.COLL_SEMESTER).doc(data.semest).set({ name: data.semest, programs: list })
+
+    return "Added Class To Semester"
+  } catch (err) {
+    return "Could Not Add Class"
+  }
 
 }
 
