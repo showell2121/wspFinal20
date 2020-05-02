@@ -69,7 +69,7 @@ app.get('/', async (req, res) => {
     const semest = await adminUtil.getSemesters()
 
     res.setHeader('Cache-Control', 'private');
-    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest });
+    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest, data: [] });
 
 });
 
@@ -80,24 +80,26 @@ app.post("/termProgram", async (req, res) => {
     const program = req.body.program
     const semest = await adminUtil.getSemesters()
 
+    console.log(term, program, "/////////////////////////////////////////////")
+
     if (term === "Select") {
 
         res.setHeader('Cache-Control', 'private');
-        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Term", classify: req.session.status, semest });
+        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Term", classify: req.session.status, semest, data: []  });
 
-    }else if(program === "Select"){
+    }else if( program === "Select"){
         res.setHeader('Cache-Control', 'private');
-        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Program", classify: req.session.status, semest });
+        res.render('class.ejs', { user: req.session.decodedIdToken, error: "Must Select A Program", classify: req.session.status, semest, data: [] });
     }
 
     const data = {term: term, program: program}
     const list = await adminUtil.getSemester(data)
-    console.log("//////////////", list)
+    //console.log("//////////////", list)
 
 
 
     res.setHeader('Cache-Control', 'private');
-    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest });
+    res.render('class.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, semest, data: list });
 
 })
 
@@ -323,7 +325,7 @@ app.get("/addClass", profAuthRedirect, async (req, res) => {
     const list = await adminUtil.getClasses();
 
 
-    console.log("///////////////LISTname", list[0][1].crn)
+    
     //set session for page
     res.setHeader('Cache-Control', 'private');
     res.render('addClass.ejs', { user: req.session.decodedIdToken, error: false, classify: req.session.status, data: list });

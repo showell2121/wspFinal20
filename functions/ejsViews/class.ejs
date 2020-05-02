@@ -47,6 +47,10 @@
                 width: 100%;
                 table-layout: fixed;
             }
+            #tab2 {
+                width: 100%;
+                table-layout: inherit;
+            }
         }
     </style>
 </head>
@@ -95,7 +99,7 @@
 
                         <option value="ACCT">Accounting</option>
                         <option value="BADM">Business Admin</option>
-                        <option value="CMSC">Computer Science</option>
+                        <option value="CMCS">Computer Science</option>
                         <option value="FRSC">Forensics</option>
                         <option value="SE">Software Engineering</option>
 
@@ -109,6 +113,104 @@
 
     </table>
 </form>
+
+<table id="tab2">
+    <thead>
+        <th>Name</th>
+        <th>Course ID</th>
+        <th>CRN</th>
+        <th style="white-space: nowrap;">Department</th>
+        <th>Days</th>
+        <th style="white-space: nowrap;">Room</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Time</th>
+        <th>Professor</th>
+        <!-- <th style="white-space: nowrap;">Send Email</th> -->
+    </thead>
+    <tbody>
+
+
+        <% data.forEach(val => {%>
+
+
+        
+
+        <form class="form-signin" action="/deleteClass" method="POST">
+
+            <tr>
+                <td>
+                    <%= val.name %>                            
+                    <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name" readonly>
+                </td>
+                <td>
+                    <%= val.id %>
+                    <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>                            
+                </td>
+                <td>
+                    <%= val.crn %>
+                    <input type="hidden" class="form-control" value="<%= val.crn %>" id="crn" name="crn"
+                        readonly>
+                </td>
+                <td>
+                    <%= val.depart %>
+                    <input type="hidden" class="form-control" value="<%= val.depart %>" id="depart"
+                        name="depart" readonly>
+                </td>
+                <td>
+                    <%= val.days %>
+                    <input type="hidden" class="form-control" value="<%= val.days %>" id="days"
+                        name="days" readonly>
+                </td>
+                <td>
+                    <%= val.classRoom %>
+                    <input type="hidden" class="form-control" value="<%= val.classRoom %>" id="classRoom"
+                        name="classRoom" readonly>
+                </td>
+                <td>
+                    <%= val.classStart %>
+                    <input type="hidden" class="form-control" value="<%= val.classStart %>" id="classStart"
+                        name="classStart" readonly>
+                </td>
+                <td>
+                    <%= val.classEnd %>
+                    <input type="hidden" class="form-control" value="<%= val.classEnd %>" id="classEnd"
+                        name="classEnd" readonly>
+                </td>
+                <td>
+                    <%= val.startTime%> - <%= val.endTime %>
+                    <input type="hidden" class="form-control" value="<%= val.startTime %>" id="startTime"
+                        name="startTime" readonly>
+                    <input type="hidden" class="form-control" value="<%= val.endTime %>" id="endTime"
+                        name="endTime" readonly>
+                </td>
+                <td>
+                    <%= val.prof %>
+                    <input type="hidden" class="form-control" value="<%= val.prof %>" id="prof"
+                        name="prof" readonly>
+                </td>
+
+                <td id="itemname">
+
+                    <input type="hidden" class="form-control" value="" id="item" name="delName" readonly>
+                    <input type="hidden" class="form-control" value="" id="item" name="delObject" readonly>
+                </td>
+                
+
+
+            </tr>
+        </form>
+
+
+
+        
+
+        <%   }) %>
+
+
+
+    </tbody>
+</table>
 
 
     <!-- Gets bootstrap footer file -->

@@ -150,10 +150,10 @@ async function getSemester(data) {
   .then((doc) => {
 
     //console.log(doc.data())
-    doc.data().programs.forEach((doc) => {
+    doc.data().programs.forEach((val) => {
 
-      if(doc.depart === data.program){
-        semest.push(doc)
+      if(val.depart === data.program){
+        semest.push(val)
       }
     })
 
