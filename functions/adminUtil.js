@@ -1,7 +1,7 @@
 
 var admin = require("firebase-admin");
 
-var serviceAccount = require("./sethh-wsp20-firebase-adminsdk-lffz9-849cfa531b.json");
+var serviceAccount = require("./sethh-wsp20-firebase-adminsdk-lffz9-24f96c87f5.json");
 
 var classObject = require("./model/class.js")
 
@@ -65,7 +65,7 @@ async function addSemester(req, res, name) {
   try {
     //read from database to ensure semester does not exist. 
     counter = await admin.firestore().collection(Constants.COLL_SEMESTER).doc(name).get().then(
-      function (doc) {
+      ((doc) =>{
         var counter = 0;
         if (doc.data()) {
           counter = 1;
@@ -79,7 +79,7 @@ async function addSemester(req, res, name) {
 
         //console.log("/////////////////////////////",doc.data())
 
-      }
+      })
     )
 
   } catch (err) {
@@ -156,6 +156,7 @@ async function getSemester(data) {
         semest.push(val)
       }
     })
+    return doc;
 
   });
   
@@ -201,8 +202,8 @@ async function addClass(object) {
     counter = await admin.firestore().collection(Constants.COLL_CLASS).doc(object["name"]).get()
       .then((doc, counter = 0, values = 0) => {
 
-        console.log("/////////////////////////////Before", doc, doc.data())
-        if (doc.data() != undefined) {
+        //console.log("/////////////////////////////Before", doc, doc.data())
+        if (doc.data() !== undefined) {
           doc.data().class.forEach(data => {
             values++;
             console.log(data.crn)
@@ -296,7 +297,7 @@ async function deleteClass(data) {
           }
         })
         //console.log("doc", doc.data().class)
-
+        return doc
       });
 
     await admin.firestore().collection("classes").doc(data.name).set({ class: list })
@@ -338,7 +339,7 @@ async function addClassSemester(data) {
             console.log("///////////////val")
           })
         }
-
+        return doc;
       });
 
     //list.push(data)

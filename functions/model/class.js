@@ -28,38 +28,38 @@ class newClass {
     //     this.classProf;
     // }
 
-    static setId(nam){ this.name = nam; }
-    static getId(){ return this.name;}
+    static setname(nam){ this.name = nam; }
+    static getname(){ return this.name;}
 
     static setId(ID){ this.id = ID; }
     static getId(){ return this.id;}
 
-    static setId(cr){ this.crn = cr; }
-    static getId(){ return this.crn;}
+    static setCrn(cr){ this.crn = cr; }
+    static getCrn(){ return this.crn;}
 
-    static setId(depart){ this.department = depart; }
-    static getId(){ return this.department;}
+    static setDepartment(depart){ this.department = depart; }
+    static getDepartment(){ return this.department;}
 
-    static setId(classSt){ this.classStart = classSt; }
-    static getId(){ return this.classStart;}
+    static setclassStart(classSt){ this.classStart = classSt; }
+    static getclassStart(){ return this.classStart;}
 
-    static setId(classE){ this.classEnd = classE; }
-    static getId(){ return this.classEnd;}
+    static setclassEnd(classE){ this.classEnd = classE; }
+    static getclassEnd(){ return this.classEnd;}
    
-    static setId(startT){ this.startTime = startT; }
-    static getId(){ return this.startTime;}
+    static setstartTime(startT){ this.startTime = startT; }
+    static getstartTime(){ return this.startTime;}
 
-    static setId(endT){ this.endTime = endT; }
-    static getId(){ return this.endTime;}
+    static setendTime(endT){ this.endTime = endT; }
+    static getendTime(){ return this.endTime;}
         
-    static setId(daysOfCl){ this.daysOfClass = daysOfCl; }
-    static getId(){ return this.daysOfClass;}
+    static setdaysOfClass(daysOfCl){ this.daysOfClass = daysOfCl; }
+    static getdaysOfClass(){ return this.daysOfClass;}
     
-    static setId(classR){ this.classRoom = classR; }
-    static getId(){ return this.classRoom;}
+    static setclassRoom(classR){ this.classRoom = classR; }
+    static getclassRoom(){ return this.classRoom;}
 
-    static setId(classPr){ this.classProf = classPr; }
-    static getId(){ return this.classProf;}
+    static setclassProf(classPr){ this.classProf = classPr; }
+    static getclassProf(){ return this.classProf;}
 
 
 }//end of class

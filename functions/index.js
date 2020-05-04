@@ -80,7 +80,7 @@ app.post("/termProgram", async (req, res) => {
     const program = req.body.program
     const semest = await adminUtil.getSemesters()
 
-    console.log(term, program, "/////////////////////////////////////////////")
+    //console.log(term, program, "/////////////////////////////////////////////")
 
     if (term === "Select") {
 
@@ -152,8 +152,7 @@ app.post("/login", async (req, res) => {
         displayName = displayName.concat(email.charAt(i));
     }
 
-    //set session for page
-    res.setHeader('Cache-Control', 'private');
+    //set session for page    
     res.redirect('/home')
 
 });
@@ -526,8 +525,9 @@ function profAuthRedirect(req, res, next) {
     if (req.session.status === 'prof') {
         return next()
     } else {
-        res.redirect("/")
+        return res.redirect("/")
     }
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////Middle ware, if true continues next else reports error/ /////////////////
