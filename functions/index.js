@@ -274,12 +274,14 @@ app.get('/home', authAndRedirectSignIn, async (req, res) => {
     } else {
 
         //set session for page
-        res.setHeader('Cache-Control', 'private');
-        res.render('homeStud.ejs', { user: req.decodedIdToken, error: false, classify: req.session.status });
+        
+        res.redirect("/studHome")
 
     }
 
 });
+
+app.get("/studHome", frontendHandler);
 
 app.get("/addSemester", profAuthRedirect, async (req, res) => {
 
@@ -552,4 +554,7 @@ async function authAndRedirectSignIn(req, res, next) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+function frontendHandler(req,res){
+    //console.log("////////////////////INHere")
+    res.sendFile(__dirname + '/prodadmin.html');
+}

@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+  <!-- links custom css -->
+  <link rel='stylesheet' href="css/my.css">
+
+  <title>Stud Home</title>
+</head>
+
+
+<body>
+
+  <div class='container'>
+
+    <!--Navagation bar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 10px; border-radius: 10px;">
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Product
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/add">Add Product</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="/show">Show Product</a>
+
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              UCO
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="https://www.uco.edu" target="_blank">Home</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="https://www.uco.edu/cms/academics/computer-science/" target="_blank">CS</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="https://uconnect.uco.edu" target="_blank">UCONNECT</a>
+
+
+            </div>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Sports <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" style="padding-right: 5px;">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+
+
+      </div>
+    </nav>
+    <!--End of Nav Bar/////////////////////////////////////////////////-->
+
+    <div class="jumbotron" id='page_content'></div>
+
+
+    <!--Firebase code to allow use of services-->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.6.2/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.6.2/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/7.6.2/firebase-storage.js"></script>
+    <!-- <script defer src="/__/firebase/7.6.2/firebase-messaging.js"></script> Dont use messaging-->
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <!-- Now I can write code that uses firebase services  -->
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBu8wFkkrlP9RsptbusnAI5tcUKhaLUROU",
+        authDomain: "sethh-wsp20.firebaseapp.com",
+        databaseURL: "https://sethh-wsp20.firebaseio.com",
+        projectId: "sethh-wsp20",
+        storageBucket: "sethh-wsp20.appspot.com",
+        messagingSenderId: "674197318819",
+        appId: "1:674197318819:web:4b2256f671fd1ca3b5e316"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- Import files and functions -->
+    <script src="js/product_validate.js"></script>
+    <script src="js/login_page.js"></script>
+    <script src="js/add_page.js"></script>
+    <script src="js/home_page.js"></script>
+    <script src="js/show_page.js"></script>
+    <script src="js/register_page.js"></script>
+    <script src="js/auth.js"></script>
+
+
+    <!-- routing in an html file to js file-->
+    <script>
+      const glPageContent = document.getElementById("page_content");
+      const IMAGE_FOLDER = 'products/'
+      const COLLECTION = 'products'
+
+      window.onload = function () {
+        const currPath = window.location.pathname;
+
+        console.log(currPath)
+        home_page();
+        if (currPath === '/studHome') {
+          home_page();
+        } else if (currPath === '/home') {
+          home_page();
+        } else if (currPath === '/add') {
+          add_page();
+        } else if (currPath === '/show') {
+          show_page();
+        } else if (currPath === '/reg') {
+          register_page();
+        } else {
+          window.location.href = '/';
+        }
+      }
+    </script>
+
+    <!-- Bootstrap -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+
+    <script>
+      //make this the fire base function with all the stuff in it. 
+      function fireBase() { }
+
+
+    </script>
+</body>
+
+</html>

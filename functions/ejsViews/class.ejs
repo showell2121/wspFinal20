@@ -43,10 +43,12 @@
                 height: 100px;
                 margin-bottom: 5%;
             }
+
             #tab1 {
                 width: 100%;
                 table-layout: fixed;
             }
+
             #tab2 {
                 width: 100%;
                 table-layout: inherit;
@@ -75,142 +77,147 @@
 
     <form action="/termProgram" method="POST">
 
-    <table id="tab1"> 
-        <tr>
-            <td >
-                <div class="dropdown">
-                    <select class="form-control" name="semester" id="semester">
-                        <option value="Select">Pick A Term</option>
-
-                        <% semest.forEach((doc) => { %>
-
-                        <option value="<%= doc.data().name %>"><%= doc.data().name %></option>
-
-
-                        <% }) %>
-                    </select>
-
-                </div>
-            </td>
-            <td>
-                <div class="dropdown">
-                    <select class="form-control" name="program" id="program" onchange="this.form.submit()">
-                        <option value="Select">Select A Program</option> 
-
-                        <option value="ACCT">Accounting</option>
-                        <option value="BADM">Business Admin</option>
-                        <option value="CMCS">Computer Science</option>
-                        <option value="FRSC">Forensics</option>
-                        <option value="SE">Software Engineering</option>
-
-
-                        
-                    </select>
-
-                </div>
-            </td>
-        </tr>
-
-    </table>
-</form>
-
-<table id="tab2">
-    <thead>
-        <th>Name</th>
-        <th>Course ID</th>
-        <th>CRN</th>
-        <th style="white-space: nowrap;">Department</th>
-        <th>Days</th>
-        <th style="white-space: nowrap;">Room</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Time</th>
-        <th>Professor</th>
-        <!-- <th style="white-space: nowrap;">Send Email</th> -->
-    </thead>
-    <tbody>
-
-
-        <% data.forEach(val => {%>
-
-
-        
-
-        <form class="form-signin" action="/deleteClass" method="POST">
-
+        <table id="tab1">
             <tr>
                 <td>
-                    <%= val.name %>                            
-                    <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name" readonly>
-                </td>
-                <td>
-                    <%= val.id %>
-                    <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>                            
-                </td>
-                <td>
-                    <%= val.crn %>
-                    <input type="hidden" class="form-control" value="<%= val.crn %>" id="crn" name="crn"
-                        readonly>
-                </td>
-                <td>
-                    <%= val.depart %>
-                    <input type="hidden" class="form-control" value="<%= val.depart %>" id="depart"
-                        name="depart" readonly>
-                </td>
-                <td>
-                    <%= val.days %>
-                    <input type="hidden" class="form-control" value="<%= val.days %>" id="days"
-                        name="days" readonly>
-                </td>
-                <td>
-                    <%= val.classRoom %>
-                    <input type="hidden" class="form-control" value="<%= val.classRoom %>" id="classRoom"
-                        name="classRoom" readonly>
-                </td>
-                <td>
-                    <%= val.classStart %>
-                    <input type="hidden" class="form-control" value="<%= val.classStart %>" id="classStart"
-                        name="classStart" readonly>
-                </td>
-                <td>
-                    <%= val.classEnd %>
-                    <input type="hidden" class="form-control" value="<%= val.classEnd %>" id="classEnd"
-                        name="classEnd" readonly>
-                </td>
-                <td>
-                    <%= val.startTime%> - <%= val.endTime %>
-                    <input type="hidden" class="form-control" value="<%= val.startTime %>" id="startTime"
-                        name="startTime" readonly>
-                    <input type="hidden" class="form-control" value="<%= val.endTime %>" id="endTime"
-                        name="endTime" readonly>
-                </td>
-                <td>
-                    <%= val.prof %>
-                    <input type="hidden" class="form-control" value="<%= val.prof %>" id="prof"
-                        name="prof" readonly>
-                </td>
+                    <div class="dropdown">
+                        <select class="form-control" name="semester" id="semester">
+                            <option value="Select">Pick A Term</option>
 
-                <td id="itemname">
+                            <% semest.forEach((doc) => { %>
 
-                    <input type="hidden" class="form-control" value="" id="item" name="delName" readonly>
-                    <input type="hidden" class="form-control" value="" id="item" name="delObject" readonly>
-                </td>
-                
+                            <option value="<%= doc.data().name %>"><%= doc.data().name %></option>
 
 
+                            <% }) %>
+                        </select>
+
+                    </div>
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <select class="form-control" name="program" id="program" onchange="this.form.submit()">
+                            <option value="Select">Select A Program</option>
+
+                            <option value="ACCT">Accounting</option>
+                            <option value="BADM">Business Admin</option>
+                            <option value="CMCS">Computer Science</option>
+                            <option value="FRSC">Forensics</option>
+                            <option value="SE">Software Engineering</option>
+
+
+
+                        </select>
+
+                    </div>
+                </td>
             </tr>
-        </form>
+
+        </table>
+    </form>
+
+    <table id="tab2">
+        <thead>
+            <th>Name</th>
+            <th>Course ID</th>
+            <th>CRN</th>
+            <th style="white-space: nowrap;">Department</th>
+            <th>Days</th>
+            <th style="white-space: nowrap;">Room</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Time</th>
+            <th>Professor</th>
+            <!-- <th style="white-space: nowrap;">Send Email</th> -->
+        </thead>
+        <tbody>
+
+
+            <% data.forEach(val => {%>
 
 
 
-        
 
-        <%   }) %>
+            <form class="form-signin" action="/addToStudent" method="POST">
+
+                <tr>
+                    <td>
+                        <%= val.name %>
+                        <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= val.id %>
+                        <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>
+                    </td>
+                    <td>
+                        <%= val.crn %>
+                        <input type="hidden" class="form-control" value="<%= val.crn %>" id="crn" name="crn" readonly>
+                    </td>
+                    <td>
+                        <%= val.depart %>
+                        <input type="hidden" class="form-control" value="<%= val.depart %>" id="depart" name="depart"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= val.days %>
+                        <input type="hidden" class="form-control" value="<%= val.days %>" id="days" name="days"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= val.classRoom %>
+                        <input type="hidden" class="form-control" value="<%= val.classRoom %>" id="classRoom"
+                            name="classRoom" readonly>
+                    </td>
+                    <td>
+                        <%= val.classStart %>
+                        <input type="hidden" class="form-control" value="<%= val.classStart %>" id="classStart"
+                            name="classStart" readonly>
+                    </td>
+                    <td>
+                        <%= val.classEnd %>
+                        <input type="hidden" class="form-control" value="<%= val.classEnd %>" id="classEnd"
+                            name="classEnd" readonly>
+                    </td>
+                    <td>
+                        <%= val.startTime%> - <%= val.endTime %>
+                        <input type="hidden" class="form-control" value="<%= val.startTime %>" id="startTime"
+                            name="startTime" readonly>
+                        <input type="hidden" class="form-control" value="<%= val.endTime %>" id="endTime" name="endTime"
+                            readonly>
+                    </td>
+                    <td>
+                        <%= val.prof %>
+                        <input type="hidden" class="form-control" value="<%= val.prof %>" id="prof" name="prof"
+                            readonly>
+                    </td>
+                    <% if(classify ==="stud") { %>
+                    <td>
+                        <button type="submit" id="button2" class="btn btn-success" target="_blank">Add</button>
+
+                    </td>
+                    <% } %>
+                    <td id="itemname">
+
+                        <input type="hidden" class="form-control" value="" id="item" name="delName" readonly>
+                        <input type="hidden" class="form-control" value="" id="item" name="delObject" readonly>
+                    </td>
 
 
 
-    </tbody>
-</table>
+                </tr>
+            </form>
+
+
+
+
+
+            <%   }) %>
+
+
+
+        </tbody>
+    </table>
 
 
     <!-- Gets bootstrap footer file -->
