@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Signin</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 250px;
+                height: 200px;
+                margin-left: 28%;
+                margin-bottom: 5%;
+
+            }
+
+            #error {
+                color: red;
+                padding-left: 6%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 300px;
+                height: 250px;
+                margin-left: 35%;
+                margin-bottom: 5%;
+
+            }
+
+            #error {
+                color: red;
+                padding-left: 3%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 350px;
+                height: 300px;
+                margin-left: 38%;
+                margin-bottom: 2%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            #tab1 {
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            #tab2 {
+                width: 100%;
+                table-layout: inherit;
+            }
+
+            #error {
+                color: red;
+                padding-left: 1%;
+
+            }
+
+            #startD,
+            #endD {
+                width: 50%;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "classToSemester", user, classify}) %>
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p id="error"> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+
+    <div class="jumbotron">
+
+        <h1 class="display-4" align="center"><i>Add Class to a Semester</i></h1>
+
+        <hr class="my-4">
+
+        <h1 class="display-4" align="center">Current Classes</h1>
+
+
+
+        <table id="tab2">
+            <thead>
+                <th>Name</th>
+                <th>Course ID</th>
+                <th>CRN</th>
+                <th style="white-space: nowrap;">Department</th>
+                <th>Days</th>
+                <th style="white-space: nowrap;">Room</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Time</th>
+                <th>Professor</th>
+                <!-- <th style="white-space: nowrap;">Send Email</th> -->
+            </thead>
+            <tbody>
+
+
+                <% data.forEach(obj => {%>
+
+
+                <% obj.forEach(val => { %>
+
+                <form class="form-signin" action="/addClassSemester" method="POST">
+
+                    <tr>
+                        <td>
+                            <%= val.name %>
+                            <input type="hidden" class="form-control" value="<%= val.name %>" id="name" name="name"
+                                readonly>
+                        </td>
+                        <td>
+                            <%= val.id %>
+                            <input type="hidden" class="form-control" value="<%= val.id %>" id="id" name="id" readonly>
+                        </td>
+                        <td>
+                            <%= val.crn %>
+                            <input type="hidden" class="form-control" value="<%= val.crn %>" id="crn" name="crn"
+                                readonly>
+                        </td>
+                        <td>
+                            <%= val.department %>
+                            <input type="hidden" class="form-control" value="<%= val.department %>" id="department"
+                                name="department" readonly>
+                        </td>
+                        <td>
+                            <%= val.daysOfClass %>
+                            <input type="hidden" class="form-control" value="<%= val.daysOfClass %>" id="daysOfClass"
+                                name="daysOfClass" readonly>
+                        </td>
+                        <td>
+                            <%= val.classRoom %>
+                            <input type="hidden" class="form-control" value="<%= val.classRoom %>" id="classRoom"
+                                name="classRoom" readonly>
+                        </td>
+                        <td>
+                            <%= val.classStart %>
+                            <input type="hidden" class="form-control" value="<%= val.classStart %>" id="classStart"
+                                name="classStart" readonly>
+                        </td>
+                        <td>
+                            <%= val.classEnd %>
+                            <input type="hidden" class="form-control" value="<%= val.classEnd %>" id="classEnd"
+                                name="classEnd" readonly>
+                        </td>
+                        <td>
+                            <%= val.startTime%> - <%= val.endTime %>
+                            <input type="hidden" class="form-control" value="<%= val.startTime %>" id="startTime"
+                                name="startTime" readonly>
+                            <input type="hidden" class="form-control" value="<%= val.endTime %>" id="endTime"
+                                name="endTime" readonly>
+                        </td>
+                        <td>
+                            <%= val.classProf %>
+                            <input type="hidden" class="form-control" value="<%= val.classProf %>" id="classProf"
+                                name="classProf" readonly>
+                        </td>
+
+                        <td id="itemname">
+
+                            <input type="hidden" class="form-control" value="" id="item" name="delName" readonly>
+                            <input type="hidden" class="form-control" value="" id="item" name="delObject" readonly>
+                        </td>
+                        <td>
+                            
+                            <div class="dropdown">
+                                <select class="form-control" name="semester" id="semester">
+                                    <option value="Select">----Select----</option>
+
+                                    <% semest.forEach((doc) => { %>
+                                    
+                                    <option value="<%= doc.data().name %>"><%= doc.data().name %></option>
+                                    
+
+                                    <% }) %>
+                                </select>
+
+                            </div>
+                            
+                            <button type="submit" id="button2" class="btn btn-success" target="_blank">Add</button>
+                        </td>
+
+
+                    </tr>
+                </form>
+
+
+
+                <%   }) %>
+
+                <%   }) %>
+
+
+
+            </tbody>
+        </table>
+
+
+
+
+        <!-- Gets bootstrap footer file -->
+        <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

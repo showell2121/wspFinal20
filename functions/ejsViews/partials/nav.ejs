@@ -1,0 +1,79 @@
+<div class='container'>
+
+  <!--Navagation bar-->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 10px; border-radius: 10px;">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+               
+        <li class="nav-item  <%= page === 'home' ? 'active' : '' %>">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <% if( page === "home") { %>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/" target="_blank">UCO Home</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/" target="_blank">Enrollment</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/dates-and-deadlines" target="_blank">Deadlines</a>
+        </li>
+        <li class="nav-item  <%= page === 'class' ? 'active' : '' %>">
+          <a class="nav-link" href="https://www.uco.edu/admissions-aid/enrollment-services/exam-schedules" target="_blank">Final Exams</a>
+        </li>
+        <% }%>
+
+        <% if(classify === "prof")  {%>
+          <li class="nav-item  <%= page === 'addSemester' ? 'active' : '' %>">
+            <a class="nav-link" href="/addSemester">Add Semester</a>
+          </li>
+          <li class="nav-item  <%= page === 'addClass' ? 'active' : '' %>">
+            <a class="nav-link" href="/addClass">Add Class</a>
+          </li>
+          <li class="nav-item  <%= page === 'classToSemester' ? 'active' : '' %>">
+            <a class="nav-link" href="/classToSemester">Class to Semester</a>
+          </li>
+          
+                   
+
+        <% } else if(classify === "stud") { %> 
+
+          <li class="nav-item  <%= page === 'request' ? 'active' : '' %>">
+            <a class="nav-link" href="/request">Enroll</a>
+          </li>
+          <li class="nav-item  <%= page === 'provide' ? 'active' : '' %>">
+            <a class="nav-link" href="/provide">View Schedule</a>
+          </li>
+          
+                
+          <% } %> 
+      </ul>
+      <form class="form-inline my-2 my-lg-0" style="padding-right: 5px;">
+        <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+        <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>         -->
+      </form>
+
+      <% if(!user)  {%>
+          
+        <form class="form-inline my-2 my-lg-0" action="/login">
+          <button class="btn btn-primary my-2 my-sm-0" type="submit" style="margin-left: 5px;">Login</button>
+        </form>
+
+        <% } else if(user) {     %>
+
+        
+        <form class="form-inline my-2 my-lg-0" action="/signout">
+          <button class="btn btn-danger my-2 my-sm-0" type="submit" style="margin-left: 5px;">Sign Out</button>
+        </form>       
+        
+        <% } %>      
+
+    </div>
+  </nav>
+  <!--End of Nav Bar/////////////////////////////////////////////////-->

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Register</title>
+    <style>
+       @media (min-width: 300px) and (max-width: 768px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+            #title{
+                margin-left: 20%;
+            }
+
+        }
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+            #title{
+                margin-left: 20%;
+            }
+
+        }
+
+        @media (min-width:992px) {
+
+            #a1 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a2 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a3 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a4 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #a5 {
+                margin-right: 150px;
+                width: 100%;
+            }
+
+            #b1 {
+                width: 100%;
+            }
+            #title{
+                margin-left: 15%;
+            }
+
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "register", user, classify: null}) %>
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+    <% } %>
+
+
+    <div class="jumbotron">
+        <h1 align="center" class="display-4" id="title">Create Account</h1>
+
+
+
+        <form class="form-signin" action="/register" method="POST">
+
+
+            <table align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; ">Classification: </label>
+                        </td>
+                        <td colspan="1">
+                            <div class="dropdown">
+                                <select class="form-control" name="classification" onchange="classifi()" id="classification">
+                                    <option value="Select">---Select---</option>
+                                    <option value="prof">Professor</option>
+                                    <option value="stud">Student</option>
+
+                                </select>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden; " id="l1">Email: </label>
+                        </td>
+                        <td colspan="1">
+                            <input type="email" class="form-control" id="a1" name="email" placeholder="Must Contain @"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden;" id="l2">Password: </label>
+                        </td>
+                        <td>
+                            <input type="password" class="form-control" id="a2" name="password"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden;" id="l3">Confirm Password: </label>
+                        </td>
+                        <td>
+                            <input type="password" class="form-control" id="a3" name="password2"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td colspan="1">
+                            <label style="margin-right: 5px; visibility: hidden; " id="l4"> </label>                                                    </td>
+                        <td>
+                            <input type="number" class="form-control" id="a4" minlength="2" name="id"
+                                style="visibility: hidden;">
+                        </td>
+                    </tr>                   
+
+                    <tr>
+                        <th></th>
+                        <td>
+
+                        </td>
+                        <td>
+                            <button type="submit" id="b1" class="btn btn-primary"
+                                style="visibility: hidden;">Register</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+        </form>
+    </div>
+
+    <script>
+
+        function classifi() {
+
+            let value = document.getElementById("classification").value
+
+            document.getElementById("l1").style.visibility = "hidden"
+            document.getElementById("a1").style.visibility = "hidden"
+            document.getElementById("l2").style.visibility = "hidden"
+            document.getElementById("a2").style.visibility = "hidden"
+            document.getElementById("l3").style.visibility = "hidden"
+            document.getElementById("a3").style.visibility = "hidden"
+            document.getElementById("a4").style.visibility = "hidden"
+            document.getElementById("l4").style.visibility = "hidden"
+            document.getElementById("b1").style.visibility = "hidden"
+            
+
+            if (value !== "Select") {               
+
+                document.getElementById("l1").style.visibility = "visible"
+                document.getElementById("a1").style.visibility = "visible"
+                document.getElementById("l2").style.visibility = "visible"
+                document.getElementById("a2").style.visibility = "visible"
+                document.getElementById("l3").style.visibility = "visible"
+                document.getElementById("a3").style.visibility = "visible"
+                document.getElementById("a4").style.visibility = "visible"
+                document.getElementById("b1").style.visibility = "visible"
+
+                if (value === "prof") {
+                    document.getElementById("l4").textContent = "Employee ID:"
+                    document.getElementById("l4").style.visibility = "visible"
+                } else if (value === "stud") {
+                    document.getElementById("l4").textContent = "Student ID:"
+                    document.getElementById("l4").style.visibility = "visible"
+                }
+
+            }
+
+
+        }
+
+
+    </script>
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+
+</body>
+
+</html>

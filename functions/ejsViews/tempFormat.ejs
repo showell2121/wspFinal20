@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Signin</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 350px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 550px;
+                height: 200px;
+                margin-left: 10%;
+                margin-bottom: 5%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 650px;
+                height: 300px;
+                margin-left: 20%;
+                margin-bottom: 5%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 30%;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "signin", user}) %>
+
+
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p style="color:red; "> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+
+    <!-- Gets bootstrap footer file -->
+    <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>

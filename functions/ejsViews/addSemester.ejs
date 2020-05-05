@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Gets bootstrap header file -->
+    <%- include("./partials/header.ejs") %>
+
+    <title>Signin</title>
+    <style>
+        /*Small devices like phones  */
+        @media (min-width: 300px) and (max-width: 768px) {
+
+            #img {
+                width: 250px;
+                height: 200px;
+                margin-left: 28%;
+                margin-bottom: 5%;
+
+            }
+
+            #error {
+                color: red;
+                padding-left: 6%;
+
+            }
+
+            #email {
+                width: 100%;
+            }
+
+            #password {
+                width: 100%;
+            }
+
+            #button2 {
+                width: 100%;
+            }
+
+            a {
+                width: 300%;
+            }
+
+            table {
+                width: -10%;
+            }
+        }
+
+
+        /* Medium devices (tablets, less than 992px) */
+        @media (min-width: 769px) and (max-width: 991.98px) {
+            #img {
+                width: 300px;
+                height: 250px;
+                margin-left: 35%;
+                margin-bottom: 5%;
+
+            }
+
+            #error {
+                color: red;
+                padding-left: 3%;
+
+            }
+        }
+
+        /* Large devices like laptops */
+        @media (min-width:992px) {
+
+            #img {
+                width: 350px;
+                height: 300px;
+                margin-left: 38%;
+                margin-bottom: 2%;
+            }
+
+            #button2 {
+
+                width: 100%;
+            }
+
+            table {
+                width: 30%;
+            }
+
+            #error {
+                color: red;
+                padding-left: 1%;
+
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav.ejs", {page: "addSemester", user, classify}) %>
+
+    <% if(error) { %>
+
+    <div align="center">
+        <p id="error"> <%= error %></p>
+
+    </div>
+
+
+
+    <% } %>
+
+
+    <div class="jumbotron">
+
+        <h1 class="display-4" align="center">Add Semesters</h1>
+        <form class="form-signin" action="/addSemester" method="POST">
+
+
+            <table align="center">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+
+                        <td colspan="1" align="right">
+                            <label>Name: </label>
+                        </td>
+
+                        <td></td>
+                        <td colspan="1">
+                            <input type="text" class="form-control" id="semester" name="semester" min="7"
+                                placeholder="Season+Year e.g Fall2020">
+                        </td>
+                        <td colspan="2">
+                            <button type="submit" id="button2" class="btn btn-primary">Add</button>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <br>
+
+        </form>
+
+
+        <hr class="my-4">
+
+
+        <h1 class="display-4" align="center">Current Semester</h1>
+
+
+
+        <table align="center">
+            <thead>
+                <th></th>
+                <th></th>
+                <th style="white-space: nowrap;">Name</th>
+                <th>Action</th>
+                <!-- <th style="white-space: nowrap;">Send Email</th> -->
+            </thead>
+            <tbody>
+
+
+                <% data.forEach(obj => {  %>
+
+                <form class="form-signin" action="/deleteSemester" method="POST">
+
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <td id="itemname">
+                            <%= obj.data().name %>
+                            <input type="hidden" class="form-control" value="<%= obj.data().name %>" id="item"
+                                name="delName" readonly>
+                            <input type="hidden" class="form-control" value="<%= obj %>" id="item"
+                                name="delObject" readonly>
+                        </td>
+                        <td>
+                            <button type="submit" id="button2" class="btn btn-danger" target="_blank">Delete</button>
+                        </td>
+
+
+                    </tr>
+                </form>
+
+
+                <% }) %>
+
+
+
+            </tbody>
+        </table>
+
+
+
+
+        <!-- Gets bootstrap footer file -->
+        <%- include("./partials/footer.ejs") %>
+</body>
+
+</html>
